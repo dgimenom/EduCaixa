@@ -1,0 +1,21 @@
+.link{
+    &__blue{
+        color: #4176db;
+        &:hover, &:focus, &:active{
+            color: #4176db;
+        }
+        
+    }
+    &__black{
+            color: #0a090a;
+            &:hover, &:focus, &:active{
+                color: #0a090a;
+            }
+    }
+    &--no-underline{
+        text-decoration: none;
+        &:hover, &:focus, &:active{
+            text-decoration: none;
+        }
+    }
+}

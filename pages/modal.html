@@ -1,0 +1,134 @@
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal__planificador">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <img
+          src="https://educaixa.org/o/educaixa-theme/images/LogosEduCaixa+LC.PNG"
+          id="edu"
+          class="mb-3 modal__header-img"
+        />
+        <p
+          class="typografy__five col-lg-8 p-0 mb-2 circular-Std-Book modal__text"
+        >
+          Al contrario del pensamiento popular, el texto de Lorem Ipsum no es
+          simplemente texto aleatorio. Universidad de Hampden-Sydney en
+          Virginia, encontró una de las palabras más oscuras de la lengua del
+          <span class="circular-Std-Bold">latín, "consecteur".</span>
+        </p>
+        <div class="form-group input-select-wrapper col-lg-5 mb-4 p-0">
+          <select
+            class="form-select"
+            id="select-1"
+            name="select-1"
+            title="perfil-profesional"
+            aria-errormessage="select-1Helper"
+            aria-invalid="true"
+          >
+            <option class="" selected="" value="">Catalunya</option>
+            <option class="" value="">Opcion 1</option>
+            <option class="" value="">Opcion 2</option>
+          </select>
+        </div>
+        <p
+          class="mb-3 col-lg-8 p-0 typografy__five circular-Std-Book modal__text"
+        >
+          Hampden-Sydney en Virginia, encontró una de las palabras más oscuras
+          de la lengua del latín,
+          <span class="circular-Std-Bold">latín, "consecteur".</span>
+          "consecteur".
+        </p>
+        <div class="mb-4">
+          <button
+            type="button"
+            class="mb-2 button__terciary-outline modal__button"
+          >
+            CaixaForum Barcelona
+          </button>
+          <button
+            type="button"
+            class="mb-2 button__terciary-outline modal__button"
+          >
+            CaixaForum Barcelona
+          </button>
+          <button
+            type="button"
+            class="mb-2 button__terciary-outline modal__button"
+          >
+            CaixaForum Barcelona
+          </button>
+          <button
+            type="button"
+            class="mb-2 button__terciary-outline modal__button"
+          >
+            CaixaForum Barcelona
+          </button>
+          <button
+            type="button"
+            class="mb-2 button__terciary-outline modal__button"
+          >
+            CaixaForum Barcelona
+          </button>
+        </div>
+        <div class="modal__footer-container">
+          <button
+            type="button"
+            class="button__secundary button--big modal__button"
+          >
+            Continuar
+          </button>
+          <div class="form-check col-lg-7 modal__term">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label
+              class="form-check-label advice modal__text color-black"
+              for="flexCheckDefault"
+            >
+              el texto de Lorem Ipsum no es simplemente texto aleatorio.
+              Universidad de Hampden-Sydney en Virginia, encontró una de las
+              palabras más oscuras de la lengua del latín,
+              <a href="#" class="">Centeres</a> "consecteur".
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var myModal = document.getElementById("myModal");
+  var myInput = document.getElementById("myInput");
+
+  myModal.addEventListener("shown.bs.modal", function () {
+    myInput.focus();
+  });
+</script>

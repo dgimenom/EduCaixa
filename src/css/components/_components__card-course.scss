@@ -1,0 +1,94 @@
+.card-course {
+  &__wrapper {
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__title {
+    font-size: 28px;
+    line-height: 34px;
+    color: #000000;
+    font-weight: 900;
+  }
+  &__element {
+    margin-bottom: 1rem;
+    max-width: 360px;
+    width: max-content;
+    // min-width: 355px;
+    margin-right: 1.5rem;
+  }
+  &__img {
+    display: block;
+    position: relative;
+    font-size: 0;
+    background-color: #4176db;
+    border-radius: 0;
+    margin-bottom: 10px;
+  }
+  &__tag {
+    background-color: #4176db;
+    font-size: 12px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 0.2rem 0.45rem;
+    line-height: 15px;
+    display: flex;
+    align-items: flex-end;
+    height: 23px;
+  }
+  &__link-container {
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+    & a {
+      margin-right: 0.2rem;
+    }
+  }
+  &__footer {
+    position: relative;
+    display: flex;
+    padding: 12px 0;
+    justify-content: space-between;
+    border-top: 1px solid #000000;
+    align-items: center;
+  }
+  &__button {
+    width: 122px;
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+  &__actions {
+    display: flex;
+    align-items: center;
+  }
+  &__description {
+    margin-bottom: 1.2rem;
+    line-height: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .card-course {
+    &__element {
+      margin-right: 0;
+      width: 100%;
+      max-width: 100%;
+      padding: 1rem;
+    }
+    &__title {
+      font-size: 22px;
+    }
+    &__button {
+      font-size: 14px;
+    }
+    &__tag {
+      display: none;
+    }
+    &__summary {
+      display: none;
+    }
+  }
+}

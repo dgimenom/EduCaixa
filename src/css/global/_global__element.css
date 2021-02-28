@@ -1,0 +1,12 @@
+.element__subtitle {
+  font-size: 25px;
+  line-height: 26px;
+  color: #000000;
+  font-weight: 900;
+}
+
+@media (max-width: 768px) {
+  .element__subtitle {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,72 @@
+
+<div class=" container vertical image-view" style="padding:0px;">
+	<div class="row panel__one">
+		<div class="video__wrapper">
+			<div class="video__media-player">
+				<video class="video__media-ico panel__video-panel" poster="vistaprevia.jpg" 
+					alt="video ..." controls>
+					<source src="https://archive.org/download/NuclearExplosion/NuclearExplosionwww.keepvid.com.mp4" type="video/mp4">
+			  	</video>
+			</div>
+
+		</div>
+
+	  <div class="box-img square square-mob col-lg panel__information">
+		  <div class="panel__tag">afegida</div>
+		  <span class="panel__header color-educaixa-secundary ">Activitad | <span class="circular-Std-Bold"> Visita dinamitzada</span></span>
+		  <h3 class="panel__title">Flors per a un futur sostenible</h3>
+		  <p class="element-body mb-3 circular-Std-Book">Descobreix les claus per a un consum responsable de les espècies autòctones.</p>
+		   <div class="mb-3 tags">
+			  <a onclick=""
+				href="#"
+				class="box-actualit-tags">Botànica</a>
+			  <a onclick=""
+				href="#"
+				class="box-actualit-tags">Ciències </a>
+			  <a onclick=""
+				href="#"
+				class="box-actualit-tags">Naturals</a>
+			  <a onclick=""
+				href="#"
+				class="box-actualit-tags">Jardineria </a>
+			</div>
+			<div class="mb-3">
+			  <p class="circular-Std-Bold">CaixaForum Barcelona
+			  </br/>
+			  Tot el curs escolar</p>
+			</div>
+			<div class="panel__footer">
+			  <button class="button__secundary-outline button--small button--light">Reserva</button>
+			  <button class="button__secundary button--small button--light panel__footer-pla">Planifica</button>
+			  <div class="statistics">
+				<svg viewBox="0 0 36 36" class="circular-chart orange">
+				  <path class="circle-bg" d="M18 2.0845
+						  a 15.9155 15.9155 0 0 1 0 31.831
+						  a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+				  <path class="circle" stroke-dasharray="100, 100" d="M18 2.0845
+						  a 15.9155 15.9155 0 0 1 0 31.831
+						  a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+				  <text x="18" y="22" class="percentage">5</text>
+				</svg>
+			  </div>
+			  <a href="">
+				<div class="panel__ico panel__ico--share"></div>
+			  </a>
+			  <a href="">
+				<div class="panel__ico panel__ico--save"></div>
+			  </a>     
+			</div>
+	  </div>
+	</div>
+  </div>
+
+<!-- change state button -->
+	<button class="button__secundary button--small button--light button__secundary--disable">Reserva</button>
+
+<script>
+	var video = document.getElementsByClassName("video__media-ico");
+	video.controls = true;
+	video.addEventListener('play', function() {
+		alert('video reproduciendo');
+	});
+</script>

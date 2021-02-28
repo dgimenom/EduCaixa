@@ -1,0 +1,116 @@
+
+.button, a.button{
+    &__primary{
+        background-color:#009DDF;
+        font-size: 18px;
+        color: #FFFFFF;
+        padding: 0.6rem 2rem;
+        // padding: 0.5rem 1rem;
+        border: 1px solid #009DDF;
+        border-radius: 25px;
+        &:hover, &:focus, &:active{
+            background-color: #009DDF;
+        }
+    }
+    &__primary-outline{
+        background-color:transparent;
+        font-size: 18px;
+        color: #009DDF;
+        padding: 0.6rem 2rem;
+        // padding: 0.5rem 1rem;
+        border: 1px solid #009DDF;
+        border-radius: 25px;
+        &:hover, &:focus, &:active{
+            background-color: #009DDF;
+            color: #FFFFFF;
+        }
+    }
+    &__secundary {
+        background-color:#4176DB;
+        font-size: 18px;
+        color: #FFFFFF;
+        padding: 0.6rem 2rem;
+        // padding: 0.5rem 1rem;
+        border: 1px solid #4176DB;
+        border-radius: 25px;
+        &:hover, &:focus, &:active{
+            background-color: #4176db;
+        }
+        &--disable {
+            background-color: rgba(65, 118, 219, 0.3);
+            border: 1px solid rgba(65, 118, 219, 0.3);
+            padding: 0.5rem 1rem;
+            &:hover, &:focus, &:active{
+                background-color: rgba(65, 118, 219, 0.3);
+            }
+        }
+    }
+    &__secundary-outline {
+        border-radius: 25px;
+        // min-width: 169px;
+        border-radius: 20px;
+        border: 1.5px solid #4176DB;
+        padding: 0.6rem 2rem;
+        // padding: 8px;
+        color: #4176DB;
+        display: flex;
+        justify-content: center;
+        align-self: flex-end;
+        align-items: baseline;
+        background-color: transparent;
+        padding: 0.5rem 1rem;
+        &:hover, &:focus, &:active{
+            color: #fff;
+            background-color: #4176DB;
+        }
+    }
+    &__terciary{
+        background-color: #4A4A4A;
+        border: 1px solid #4A4A4A;
+        // padding: 8px 14px;
+        padding: 0.6rem 2rem;
+        color: #FFFFFF;
+        border-radius: 25px;
+        &:hover, &:focus, &:active{
+            color: #FFFFFF;
+            background-color:#4A4A4A;
+        }
+    }
+    &__outline-dark, &__terciary-outline{
+        background-color: transparent;
+        border: 1px solid #212529;
+        color: #212529;
+        padding: 0.6rem 2rem;
+        border-radius: 25px;
+        &:hover, &:focus, &:active{
+            color: #fff;
+            background-color:#212529;
+        }
+    }
+    &--light{
+        padding: 0.2rem 2rem;
+    }
+    &--small{
+        width: 122px;
+    }
+    &--medium{
+        width: 169px;
+    }
+    &--disable{
+        opacity: 0.5;
+    }
+
+}
+
+@media  (max-width: 768px){
+    .button{
+        &__secundary-outline{
+            width: 100%;
+            margin: 0;
+        }
+    }
+
+    .button__secundary{
+        width: 100%;
+    }
+}

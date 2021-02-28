@@ -1,0 +1,23 @@
+.link__blue {
+  color: #4176db;
+}
+
+.link__blue:hover, .link__blue:focus, .link__blue:active {
+  color: #4176db;
+}
+
+.link__black {
+  color: #0a090a;
+}
+
+.link__black:hover, .link__black:focus, .link__black:active {
+  color: #0a090a;
+}
+
+.link--no-underline {
+  text-decoration: none;
+}
+
+.link--no-underline:hover, .link--no-underline:focus, .link--no-underline:active {
+  text-decoration: none;
+}

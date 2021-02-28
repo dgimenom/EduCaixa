@@ -1,0 +1,64 @@
+.planificador{
+    &__list-course {
+        font-size: 18px;
+        font-family: 'Circular Std Bold';
+        & span{
+            margin-right: 0.4rem;
+        }
+    }
+    &__content-description {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+    }
+
+    &__groups {
+        width: 650px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        &--group{
+            width: 58%;
+            padding: 0;
+        }
+        &--companions{
+            width: 40%;
+            padding: 0;
+        }
+    }
+    &__footer{
+         display: flex;
+        justify-content: space-between;
+        & button{
+            padding: 0.6rem 2rem;
+        }
+    }
+    
+}
+
+@media (max-width: 768px){
+    .planificador{
+        &__content-description{
+            flex-direction: column;
+        }
+         &__item-alert{
+              margin-left: 0;
+        }
+        &__container{
+            flex-direction: column;
+            align-items: center;
+        }
+        &__footer{
+            &  button {
+                width: auto;
+            }
+        }
+        &__list-course{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0.6rem;
+            font-size: 16px;
+        }
+    }
+}
+

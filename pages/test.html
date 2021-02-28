@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EduCaixa Maqueta</title>
+    <!-- Bootstrap core CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <!-- Full calendar source-->
+    <!-- <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
+<script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script> -->
+
+    <link href="../fullcalendar-5.5.0/lib/main.css" rel="stylesheet" />
+    <script src="../fullcalendar-5.5.0/lib/main.js"></script>
+
+    <!-- datepicker -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+      integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+      integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+      crossorigin="anonymous"
+    />
+    <!-- Custom styles for this template -->
+
+    <link href="../src/css/base.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <h1>Planificador de visites per a grups</h1>
+        <div class="planificador__header">
+          <ol class="steps-process">
+            <li>1 <span> | Tria les activitats</span></li>
+            <li >2 <span>| Assigna groups i dates</span></li>
+            <li class="active">3 <span>| Trie els horaris</span></li>
+            <li>4 <span>| Resum</span></li>
+          </ol>
+          <div class="planificador__content-description">
+            <p class="col-lg-7">
+              But I must explain to you how all this mistaken idea of denouncing
+              pleasure and praising pain was born and I will give you a complete
+              account of the system, and expound the actual teachings of the
+              great explorer of the truth, the master-builder
+            </p>
+            <div class="col-lg-4 card-help">
+              <img
+                class="card-help__ico--help"
+                src="style-news/images/encuesta.png"
+              />
+              <div>
+                <p>Necesitas ayuda para planificar?</p>
+                <p>
+                  Llama al teléfono
+                  <span class="color-caixa-blue">93 456 78 90</span> o escribe a
+                  <u class="color-caixa-blue">pedidos@educaixa.com</u>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-assignment__container">
+          <div class="mb-3 planificador__subtitle">
+            <h3>
+              <strong>Assigna-li una data a l´activitat</strong> Selecciona el
+              día o la setmana per realizar l´activitat.
+            </h3>
+          </div>
+          <div class="mb-4 d-flex justify-content-between">
+            <div class="calendar__period-container">
+              <div
+                class="btn-group calendar__period-button"
+                role="group"
+                aria-label="Basic radio toggle button group"
+              >
+                <input
+                  type="radio"
+                  class="btn-check dayGridWeek"
+                  name="btnradio"
+                  id="btnradio1"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btnradio1"
+                  >Día</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check dayGridDay"
+                  name="btnradio"
+                  id="btnradio2"
+                  autocomplete="off"
+                  checked
+                />
+                <label class="btn btn-outline-primary" for="btnradio2"
+                  >Semana</label
+                >
+              </div>
+            </div>
+            <div class="d-flex align-self-center">
+              <span
+                class="calendar__leyend blue calendar__leyend-description"
+              ></span
+              >Activitat triada
+            </div>
+          </div>
+          <div class="calendar__summary">
+            <p class="mb-2">
+              Aquí se mostrará el
+              <strong>resumen de las sesiones seleccionadas.</strong>
+            </p>
+            <p>Aún no has seleccionado ningún curso</p>
+          </div>
+          <div class="calendar__summary">
+            <p class="mb-2">
+              Has<strong> seleccionado</strong> las siguientes sessions
+              disponibles.
+            </p>
+            <div class="calendar__summary-item">
+              <div class="col-lg-6">
+                <div class="d-flex align-items-center">
+                  <div class="calendar__notification one me-2">1</div>
+                  <strong> Grup 1. 1r de Batxillerat A</strong>
+                </div>
+                <p class="color-gray">
+                  <a href="#" class="color-educaixa-secundary"
+                    >Comunicat. Taller de expression corporal |</a
+                  >
+                  26.01.19 - 9:30h
+                </p>
+                <p class="color-gray">
+                  <a href="#" class="color-educaixa-secundary"
+                    >Comunicat. Taller de expression corporal |</a
+                  >
+                  26.01.19 - 9:30h
+                </p>
+              </div>
+              <div class="col-lg-6">
+                <div class="d-flex align-items-center">
+                  <div class="calendar__notification two me-2">2</div>
+                  <strong> Grup 1. 1r de Batxillerat A</strong>
+                </div>
+                <p class="color-gray">
+                  <a href="#" class="color-educaixa-secundary"
+                    >Comunicat. Taller de expression corporal |</a
+                  >
+                  26.01.19 - 9:30h
+                </p>
+                <p class="color-gray">
+                  <a href="#" class="color-educaixa-secundary"
+                    >Comunicat. Taller de expression corporal |</a
+                  >
+                  26.01.19 - 9:30h
+                </p>
+              </div>
+            </div>
+          </div>
+          <div id="calendar" class="calendar__fullcalendar"></div>
+        </div>
+
+        <div class="col-lg-12 planificador__footer">
+          <div class="">
+            <button
+              class="rounded button__outline-blue-secondary"
+              id=""
+              onclick=""
+              type="button"
+            >
+              <span class="lfr-btn-label">Anterior</span>
+            </button>
+          </div>
+          <div class="">
+            <button
+              class="rounded button__secundary--disable"
+              id=""
+              onclick=""
+              type="button"
+            >
+              <span class="lfr-btn-label">Trie els horario</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-12 planificador__footer">
+          <div class="">
+            <button
+              class="rounded button__outline-blue-secondary"
+              id=""
+              onclick=""
+              type="button"
+            >
+              <span class="lfr-btn-label">Anterior</span>
+            </button>
+          </div>
+          <div class="">
+            <button
+              class="rounded button__secundary"
+              id=""
+              onclick=""
+              type="button"
+            >
+              <span class="lfr-btn-label">Trie els horario</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- <p>
+          <button id="prev">prev</button>
+          <button id="next">next</button>
+        </p> -->
+
+        <div class="calendar__fullcalendar-items">
+          <div data-date="2021-01-05" data-start="2021-01-05T10:00:00" data-end="2021-01-05T12:30:00">
+            <div class="calendar__item calendar__border--blue">
+              <div class="calendar__leyend blue"></div>
+              <div>
+                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
+                <p>Máx 30 alumnes</p>
+                <p>25$ per grup</p>
+                <a href="" class="link__blue">Más información</a>
+              </div>
+              <div>
+                <div class="calendar__notification one">1</div>
+                <div class="calendar__notification two">2</div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-date="2021-01-06"
+            data-start="2021-01-06T18:30:00"
+            data-end="2021-01-06T20:00:00"
+          >
+            <div class="calendar__item calendar__border--blue">
+              <div class="calendar__leyend blue"></div>
+              <div>
+                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
+                <p>Máx 30 alumnes</p>
+                <p>25$ per grup</p>
+                <a href="" class="link__blue">Más información</a>
+              </div>
+              <div>
+                <div class="calendar__notification one">1</div>
+                <div class="calendar__notification two">2</div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-date="2021-01-10"
+            data-start="2021-01-10T16:30:00"
+            data-end="2021-01-10T18:30:00"
+          >
+            <div class="calendar__item calendar__border--blue">
+              <div class="calendar__leyend blue"></div>
+              <div>
+                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
+                <p>Máx 30 alumnes</p>
+                <p>25$ per grup</p>
+                <a href="" class="link__blue">Más información</a>
+              </div>
+              <div>
+                <div class="calendar__notification one">1</div>
+                <div class="calendar__notification two">2</div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-date="2021-01-06"
+            data-start="2021-01-06T12:30:00"
+            data-end="2021-01-06T15:30:00"
+          >
+            <div class="calendar__item calendar__border">
+              <div class="calendar__leyend black"></div>
+              <div>
+                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
+                <p>Máx 30 alumnes</p>
+                <p>25$ per grup</p>
+                <p class="mb-3">
+                  <a href="#"
+                    ><span class="item-activity__ico--porcent"></span>Descuento</a
+                  >
+                </p>
+                <a href="" class="link__black">Más información</a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="calendar__item calendar__border"
+            data-date="2021-01-07"
+            data-start="2021-01-07T07:30:00"
+            data-end="2021-01-07T10:30:00"
+          >
+            <div class="calendar__leyend black"></div>
+            <div>
+              <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
+              <p>Máx 30 alumnes</p>
+              <p>25$ per grup</p>
+              <p class="mb-3">
+                <a href="#"
+                  ><span class="item-activity__ico--porcent"></span>Descuento</a
+                >
+              </p>
+              <a href="" class="link__black">Más información</a>
+            </div>
+          </div>
+          <div
+            class="calendar__item large calendar__border--light-gray"
+            data-date="2021-01-04T2021-01-05"
+            data-start="2021-01-04T08:30:00"
+            data-end="2021-01-04T11:00:00"
+          >
+            <div>
+              <p class="color-grayLight">9:30 - 11:30 h</p>
+              <p class="mb-3 color-gray">
+                <span class="item-activity__ico--alert"></span> Només 10 places
+                disponibles
+              </p>
+              <a href="#" class="link__black"
+                ><span class="item-activity__ico--plus"></span>Agegeix a la
+                lista d´espera</a
+              >
+            </div>
+          </div>
+          <div
+            class="calendar__item large calendar__border--light-gray"
+            data-date="2021-01-06"
+            data-start="2021-01-06T13:30:00"
+            data-end="2021-01-06T14:30:00"
+          >
+            <div>
+              <p class="color-grayLight">9:30 - 11:30 h</p>
+              <p class="mb-3 color-gray">
+                <span class="item-activity__ico--alert"></span> Només 10 places
+                disponibles
+              </p>
+              <a href="#" class="link__black"
+                ><span class="item-activity__ico--plus"></span>Agegeix a la
+                lista d´espera</a
+              >
+            </div>
+          </div>
+          <div
+            class="calendar__item large calendar__border--light-gray"
+            data-date="2021-01-04"
+            data-start="2021-01-04T09:00:00"
+            data-end="2021-01-04T10:30:00"
+          >
+            <div>
+              <p class="color-grayLight">9:30 - 11:30 h</p>
+              <p class="mb-3 color-gray">
+                <span class="item-activity__ico--alert"></span> Només 10 places
+                disponibles
+              </p>
+              <a href="#" class="link__black"
+                ><span class="item-activity__ico--plus"></span>Agegeix a la
+                lista d´espera</a
+              >
+            </div>
+          </div>
+          <div
+            class="calendar__item large calendar__border--blue"
+            data-date="2021-01-05"
+            data-start="2021-01-05T11:00:00"
+            data-end="2021-01-05T13:00:00"
+          >
+            <div>
+              <p class="color-educaixa-secundary">26 places disponibles</p>
+              <p class="color-gray">
+                <span class="item-activity__ico--alert"></span> Només 10 places
+                disponibles
+              </p>
+              <select
+                class="form-select form-control error-field"
+                id="select-2"
+                name="select-2"
+                title="perfil-profesional"
+                aria-errormessage="select-2Helper"
+                aria-invalid="true"
+              >
+                <option class="" value="">
+                  <span class="calendar__notification">1</span> Opcion 1
+                </option>
+                <option class="" value="">
+                  <span class="calendar__notification">2</span> Opcion 2
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      let footerButton = "Detalle del día";
+      let listItem = (events = generateEvents(footerButton));
+      var calendarEl = document.getElementById("calendar");
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+          left: "timeGridDay,dayGridWeek prev",
+          center: "title",
+          right: "next",
+          titleFormat: '\'Hello, World!\'',
+          // right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        },
+        // height: 'auto',
+        initialDate: "2021-01-05",
+        // navLinks: true, // can click day/week names to navigate views
+        editable: false,
+        dayMaxEvents: true, // allow "more" link when too many events
+        locale: "es",
+        defaultView: "week",
+        slotEventOverlap: false,
+        initialView: "dayGridWeek",
+        editable: false,
+        axisFormat: 'H:mm a',
+        slotLabelFormat:{
+             hour: '2-digit',
+             minute: '2-digit',
+             hour12: false
+             },
+        timeFormat: {
+          month: 'long',
+          year: 'numeric',
+          day: 'numeric',
+          weekday: 'long'
+        },
+        customRender: true,
+        events: events,
+        eventContent:function(info, event, element, view){// function(info) {
+          // console.log("INFO",  info.event._context.calendarApi.el);
+            console.log("INFO", info,event, element );
+            // element.find('.fc-event-title').append("<br/>" + event.description);
+          //www.iteramos.com/pregunta/63903/mostrar-mas-texto-en-fullcalendar
+          // console.log('event',event,'element',element,'view',view);
+          // info.el.querySelector('.fc-title').innerHTML = "<i>" + 'erikaaaaaaaaa' + "</i>";
+          return { html: info.event.extendedProps.customHtml }
+        },
+        eventDidMount: function (info) {
+          // console.log("INFO", info.event.extendedProps.html.outerHTML, info);
+          
+          /*
+          if (info.view.type == "dayGridWeek") {
+            $(".fc-dayGridWeek-view table .fc-daygrid-day").each(function () {
+              if ($(this).attr("data-date") == info.event.startStr) {
+                var item = $(".calendar__fullcalendar-items div[data-date='" + info.event.startStr +"']").clone();
+                $(this).find(".fc-daygrid-day-events").prepend(
+                    item.each(function (index, elem) {
+                      $(this).html();
+                    })
+                  );
+              }
+            });
+          }
+          if (info.view.type == "timeGridDay") {
+            let height = $(".fc-timegrid-body tr").height();
+            let hour = height * 2;
+            let time, dataStart, dataEnd, halfHourStart;
+            let gridDayTable = $(".fc-timeGridDay-view table .fc-timegrid-col-events:eq(1)");
+            // $(".fc-timeGridDay-view table .fc-timegrid-col-events").each(
+            //   function () {
+                var item = $(".calendar__fullcalendar-items div[data-date='" + info.event.startStr + "']").clone();
+                console.log('height',height);
+
+                item.each(function (index, elem) {
+                  console.log('height',height);
+                  dataStart = (elem.getAttribute('data-start')).slice(0,2);
+                  halfHourStart = parseInt((elem.getAttribute('data-start')).slice(3,5));
+                  if(halfHourStart ==0){ halfHourStart = parseInt(height) * -1; }
+                  else { halfHourStart =0; }
+                  dataEnd =  (elem.getAttribute('data-end')).slice(0,2);
+                  console.log('halfHourStart',halfHourStart);
+                  // inset: 0px 43% -506px; inset: 257px 43% -438px;
+                  // $(elem).css({ "z-index": "1", "inset": "white" });
+                  let elemString =  toString(elem);
+                  let heightPosition = (parseInt(dataStart) * hour) + hour + halfHourStart;
+                  let endHeight = (parseInt(dataEnd) * hour) * -1;
+                  // console.log(dataStart,dataEnd,height,  elem);
+
+                  $(elem).css({ "z-index": "1", "inset-block-start":heightPosition, "inset-block-end": dataEnd, "position": "absolute" });
+                  $(".fc-timeGridDay-view .fc-timegrid-col-events").eq(0).prepend(
+                    elem      
+                  );
+                })
+            //   }
+            // );
+          }
+          */
+          switchButtonDayWeek();
+        },
+        
+        // eventClick: function(info) {
+        //   alert('Event: ' + info.event.title);
+        //   alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+        //   alert('View: ' + info.view.type);
+
+        //   // change the border color just for fun
+        //   info.el.style.borderColor = 'red';
+        // },
+        // customButtons: {
+        //   prev: {
+        //     text: 'Prev',
+        //     click: function() {
+        //                 // so something before
+        //                 alert("PREV button is going to be executed")
+        //                 // do the original command
+        //                 // calendar.prev();
+        //                 // // do something after
+        //                 // alert("PREV button executed")
+        //                 // reloadItem();
+        //     }
+        //   },
+        //   next: {
+        //     text: 'Next',
+        //     click: function() {
+        //                 // so something before
+        //                 alert("NEXT button is going to be executed")
+        //                 // do the original command
+        //                 // calendar.next();
+        //                 // // do something after
+        //                 // alert("NEXT button executed")
+        //                 // reloadItem();
+        //     }
+        //   },
+        // }
+      });
+      calendar.render();
+      // $('.fc-prev-button span').click(function(){
+      //   alert('prev is clicked, do something');
+      // });
+
+      // $('.fc-next-button span').click(function(){
+      //   alert('nextis clicked, do something');
+      // });
+
+      // document.getElementById('next').addEventListener('click', function() {
+      //   calendar.next();
+      //   calendar.eventDidMount();
+      // });
+
+      function generateEvents(footerButton) {
+        let allDates = [],
+          date = [], i=0;
+          events = [], content ={};
+        $(".calendar__fullcalendar-items div").each(function (index, elem) {
+           if (this.getAttribute("data-date") != null) {
+             var content = {
+               html: this
+              }
+              console.log('erika2', content.html.outerHTML);
+            let event = { 
+              start: this.getAttribute("data-start"),
+              end: this.getAttribute("data-end"),
+              title: this.getAttribute("data-start"),
+              extendedProps: content,
+              // id: this.getAttribute("data-start"),
+              classNames: this.getAttribute("data-start"),
+              groupId: i++,
+              customHtml: content.html.outerHTML
+            };
+            events.push(event);
+            // console.log('event',event);
+          }
+        });
+         console.log("events", events);
+        return events;
+
+    /*    let allDates = [],
+          date = [],
+          events = [];
+        $(".calendar__fullcalendar-items div").each(function () {
+          if (this.getAttribute("data-date") != null) {
+            allDates.push(this.getAttribute("data-date"));
+          }
+        });
+        date = allDates.filter(
+          (valor, indiceActual, arreglo) =>
+            arreglo.indexOf(valor) === indiceActual
+        );
+        for (indice in date) {
+          let event = { start: date[indice], title: footerButton, midiv: '<p>se pudo bithc</p>' };
+          events.push(event);
+        }
+        console.log("events", events);
+        return events;
+    */
+      }
+
+      function switchButtonDayWeek() {
+        $(".calendar__period-button input").click(function () {
+          if ($(".dayGridWeek").is(":checked")) {
+            $(".fc-timeGridDay-button").click();
+          }
+          if ($(".dayGridDay").is(":checked")) {
+            $(".fc-dayGridWeek-button").click();
+          }
+        });
+      }
+    </script>
+  </body>
+
+  <!-- JavaScript Global -->
+  <!-- <script src="/style-educaixa/js-base/masonry.pkgd.js"></script>
+  <script src="/style-educaixa/js-base/jquery.cookies.js"></script>
+  <script src="/style-educaixa/js-base/jquery-ui.min.js"></script>
+  <script src="/style-educaixa/js-base/css-var-polyfill.js"></script>
+  <script src="/style-educaixa/js-base/ie11CustomProperties.min.js"></script>
+  <script src="/style-educaixa/js-base/webcomponents-lite.js"></script>
+  <script src="/style-educaixa/js-base/slick.min.js"></script>
+  <script src="/style-educaixa/js-base/myeducaixa.js"></script>
+  <script src="/style-educaixa/js-base/caixa.js"></script> -->
+
+  <!-- Javascript new -->
+  <!-- <script src="/style-news/js/main.js"></script>  -->
+</html>

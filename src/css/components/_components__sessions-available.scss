@@ -1,0 +1,49 @@
+.sessions-available{
+    &__container {
+        width: 22rem;
+    }
+    &__item {
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        & p{
+            line-height: 20px;
+        }
+    }
+    &__secundary-outline {
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+    }
+    &__button-end {
+        width: 100%;
+        padding: 0.4rem 2rem;
+        margin-top: 1rem;
+        font-size: 16px;
+    }
+    &__button-reserve {
+        width: 10rem;
+        padding: 0.2rem;
+        display: flex;
+        align-self: center;
+    }
+    &__title{
+        font-family: "Circular Std Bold";
+        line-height: 32px;
+        color: #000000;
+        font-size: 24px;
+        margin-bottom: 0.8rem;
+    }
+    &__description{
+        line-height: 20px;
+        font-family: "Circular Std Bold";
+    }
+}
+
+@media  (max-width: 768px){
+    .sessions-available{
+        &__button-reserve {
+            width: auto;
+            padding: 0.2rem 2rem;
+        }
+    }
+}

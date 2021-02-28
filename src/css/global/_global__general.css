@@ -1,0 +1,9 @@
+.global {
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .global {
+    font-size: 14px;
+  }
+}
