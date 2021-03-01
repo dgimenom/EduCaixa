@@ -1,37 +1,35 @@
 /* BASE EDUCAIXA */
-/* @import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/fonts_caixa.css'; */
+/* @import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/fonts_caixa.css';
 @import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/slick.css';
 @import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/slick-theme.css';
 @import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/form.css';
 @import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/desktop.css';
 
-
 @import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/responsive.css';
-@import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/dev.css';
-
+@import '../../../educaixa-workspace/wars/educaixa-theme/src/main/webapp/css/dev.css'; */
 
 /* GLOBAL */
-@import '../css/global/_global__fonts.css';
-@import '../css/global/_global__general.css';
-@import '../css/global/_global__colors.css';
-@import '../css/global/_global__typografy.css';
-@import '../css/global/_global__buttons.css';
-@import '../css/global/_global__element.css';
-@import '../css/global/_global__link.css';
-@import '../css/global/_global__image.css';
+@import "../css/global/_global__fonts.css";
+@import "../css/global/_global__general.css";
+@import "../css/global/_global__colors.css";
+@import "../css/global/_global__typografy.css";
+@import "../css/global/_global__buttons.css";
+@import "../css/global/_global__element.css";
+@import "../css/global/_global__link.css";
+@import "../css/global/_global__image.css";
 
 /* COMPONENTS */
-@import '../css/components/_components__planificador.css';
-@import '../css/components/_components__group-assignment.css';
-@import '../css/components/_components__card-help.css';
-@import '../css/components/_components__item-activity.css';
-@import '../css/components/_components__steps-process.css';
-@import '../css/components/_components__calendar.css';
-@import '../css/components/_components__fullcalendar.css';
-@import '../css/components/_components__panel.css';
-@import '../css/components/_components__range.css';
-@import '../css/components/_components__video.css';
-@import '../css/components/_components__sessions-available.css';
-@import '../css/components/_components__card-course.css';
-@import '../css/components/_components__header.css';
-@import '../css/components/_components__card-cesta.css';
+@import "../css/components/_components__planificador.css";
+@import "../css/components/_components__group-assignment.css";
+@import "../css/components/_components__card-help.css";
+@import "../css/components/_components__item-activity.css";
+@import "../css/components/_components__steps-process.css";
+@import "../css/components/_components__calendar.css";
+@import "../css/components/_components__fullcalendar.css";
+@import "../css/components/_components__panel.css";
+@import "../css/components/_components__range.css";
+@import "../css/components/_components__video.css";
+@import "../css/components/_components__sessions-available.css";
+@import "../css/components/_components__card-course.css";
+@import "../css/components/_components__header.css";
+@import "../css/components/_components__card-cesta.css";

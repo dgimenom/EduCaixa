@@ -1,5 +1,3 @@
-<!-- Daily Calendar Development  -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,17 +20,13 @@
     <!-- CUSTOM CSS DAILY CALENDAR -->
     <link href="src/css/dailyCalendar.css" rel="stylesheet" />
 
-    <link href="fullcalendar-5.5.0/lib/main.css" rel="stylesheet" />
-    <script src="fullcalendar-5.5.0/lib/main.js"></script>
-
     <!-- Custom styles for this template -->
     <script src="src/js/main.js"></script>
     <link href="src/css/base.css" rel="stylesheet" />
   </head>
+
   <body>
-    <div class="container">
-      <div id="daily-calendar" ></div>
-    </div>
+    <div id="daily-calendar"></div>
 
     <script id="handlebars-demo" type="text/x-handlebars-template">
       {{#each activities}}
@@ -222,205 +216,6 @@
         </div>
       {{/each}}
     </script>
-
-    <!-- <script>
-      let footerButton =
-        '<div class="calendar__item p-0"><button class="button__primary-outline  calendar__button typografy__five">Detalle del día</button></div></div>';
-      let allDates = [],
-        initialViewP,
-        defaultViewI = initialViewE();
-      let subtitle = "CaixaForum Barcelona",
-        showSubtitle = false,
-        midnight = "23:00";
-      let listItem = (events = generateEvents());
-
-      var calendarEl = document.getElementById("fullcalendar");
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        locale: "es",
-        headerToolbar: {
-          left: "timeGridDay,dayGridWeek,listWeek,listDay prev",
-          center: "title",
-          right: "next",
-          titleFormat: "'Hello, World!'",
-        },
-        height: "auto",
-        initialDate: "2021-01-05",
-        navLinks: true, // can click day/week names to navigate views
-        editable: true,
-        dayMaxEvents: true, // allow "more" link when too many events
-        defaultView: "week",
-        slotEventOverlap: false,
-        initialView: defaultViewI,
-        editable: true,
-        axisFormat: "H:mm a",
-        slotLabelFormat: {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        },
-
-        views: {
-          week: {
-            titleFormat: { year: "numeric", month: "long", day: "2-digit" },
-            titleRangeSeparator: " al ",
-          },
-        },
-        dayHeaderFormat: {
-          weekday: "long",
-          month: "long",
-          day: "numeric",
-          omitCommas: false,
-        },
-        columnFormat: {
-          month: "long",
-          week: "long",
-          day: "2-digit",
-        },
-        customRender: true,
-        events: events,
-        hiddenDays: [6, 0],
-        allDaySlot: false,
-        eventContent: function (info, event, element, view) {
-          return { html: info.event.extendedProps.customHtml };
-        },
-        eventDidMount: function (info, event, element) {
-          let week = $(".btn-dayGridWeek").text();
-          let day = $(".btn-dayGridDay").text();
-          /*if(!showSubtitle){
-            $('.fc-toolbar-chunk:nth-child(2)').append('<p class="fullcalendar-subtitle">'+subtitle +'</p>')
-            showSubtitle=true;
-          }*/
-          if (info.view.type == "dayGridWeek") {
-            //$('.fc-toolbar-title').html(week + ' del ' + info.view.title);
-            // $('.fc-toolbar-title').html('Semana del ' + info.view.title);
-          }
-          if (info.view.type == "timeGridDay") {
-            if (info.event.extendedProps.customHtml == footerButton) {
-              info.event.remove();
-            }
-          }
-
-          switchButtonDayWeek();
-        },
-        eventClick: function (info) {
-          var eventObj = info.event;
-          console.log("eventObj", eventObj);
-          info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
-
-          if (eventObj.title == "button") {
-            console.log("calendar__button");
-          }
-        },
-        columnHeaderText: function (date) {
-          console.log("IEEP =>" + date);
-          if (date.getDay() === 1) {
-            return "Lunes " + date.getDay() + " de enero";
-          }
-          if (date.getDay() === 2) {
-            return "Martes " + date.getDay() + " de enero";
-          }
-          if (date.getDay() === 3) {
-            return "Miércoles " + date.getDay() + " de enero";
-          }
-          if (date.getDay() === 4) {
-            return "Jueves " + date.getDay() + " de enero";
-          }
-
-          if (date.getDay() === 5) {
-            return "Viernes " + date.getDay() + " de enero";
-          }
-        },
-      });
-
-      calendar.render();
-
-      function generateEvents() {
-        (date = []), (i = 0);
-        (events = []), (content = {});
-        $(".calendar__fullcalendar-items div").each(function (index, elem) {
-          if (this.getAttribute("data-date") != null) {
-            var content = {
-              html: this,
-            };
-            let event = {
-              start: this.getAttribute("data-start"),
-              end: this.getAttribute("data-end"),
-              title: this.getAttribute("data-start"),
-              extendedProps: content,
-              classNames: this.getAttribute("data-start"),
-              groupId: i++,
-              customHtml: content.html.outerHTML,
-            };
-            events.push(event);
-            allDates.push(this.getAttribute("data-date"));
-          }
-        });
-
-        allDates = allDates.filter((item, index) => {
-          return allDates.indexOf(item) === index;
-        });
-
-        allDates.forEach((date) => {
-          events.push({
-            start: date + "T" + midnight,
-            end: date,
-            groupId: date,
-            customHtml: footerButton,
-            title: "button",
-            url: "",
-          });
-        });
-        return events;
-      }
-
-      function initialViewE() {
-        if (window.innerWidth > 1200) {
-          initialViewP = "dayGridWeek";
-        }
-        if (window.innerWidth < 1200) {
-          if ($(".dayGridWeek").is(":checked")) {
-            initialViewP = "listWeek";
-            $(".fc-listWeek-button").click();
-          }
-          if ($(".dayGridDay").is(":checked")) {
-            initialViewP = "listDay";
-            $(".fc-listDay-button").click();
-          }
-        }
-        return initialViewP;
-      }
-
-      function switchButtonDayWeek() {
-        $(".calendar__period-button input").click(function () {
-          if (window.innerWidth > 1200) {
-            if ($(".dayGridDay").is(":checked")) {
-              $(".fc-timeGridDay-button").click();
-            }
-            if ($(".dayGridWeek").is(":checked")) {
-              $(".fc-dayGridWeek-button").click();
-            }
-          }
-          if (window.innerWidth < 1200) {
-            if ($(".dayGridWeek").is(":checked")) {
-              initialViewP = "listWeek";
-              $(".fc-listWeek-button").click();
-            }
-            if ($(".dayGridDay").is(":checked")) {
-              initialViewP = "listDay";
-              $(".fc-listDay-button").click();
-            }
-          }
-        });
-      }
-
-      $(".calendar__modal-link").on("click", function () {
-        $(this).toggleClass("open");
-      });
-
-      $(".calendar__modal-close").on("click", function () {
-        $(".calendar__modal-link").removeClass("open");
-      });
-    </script> -->
 
     <!-- CUSTOM JS DAILY CALENDAR -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
