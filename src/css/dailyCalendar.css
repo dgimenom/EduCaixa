@@ -1,0 +1,36 @@
+#daily-calendar {
+  display: flex;
+  flex-direction: row;
+}
+
+.toggle-link {
+  display: none;
+  margin: 1rem 0;
+}
+
+@media screen and (max-width: 600px) {
+  #daily-calendar {
+    flex-direction: column !important;
+  }
+  .toggle-link {
+    display: block;
+  }
+}
+
+.down-arrow::after {
+  content: "";
+  background-image: url("../images/down-arrow-blue.svg");
+  background-size: cover;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  margin-left: 6px;
+}
+
+.arrow-rotation::after {
+  transform: rotate(180deg);
+}
+
+.form-select {
+  font-weight: 900;
+}

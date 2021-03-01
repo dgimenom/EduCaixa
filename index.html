@@ -1,0 +1,429 @@
+<!-- Daily Calendar Development  -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>EduCaixa Maqueta</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <!-- CUSTOM CSS DAILY CALENDAR -->
+    <link href="../src/css/dailyCalendar.css" rel="stylesheet" />
+
+    <link href="../fullcalendar-5.5.0/lib/main.css" rel="stylesheet" />
+    <script src="../fullcalendar-5.5.0/lib/main.js"></script>
+
+    <!-- Custom styles for this template -->
+    <script src="../src/js/main.js"></script>
+    <link href="../src/css/base.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="daily-calendar" ></div>
+    </div>
+
+    <script id="handlebars-demo" type="text/x-handlebars-template">
+      {{#each activities}}
+        <div class="activity" style="width: 100%">
+          <!-- ACTIVITY CONTAINER -->
+          <div class="calendar__item p-0">
+            <div class="calendar__leyend black"></div>
+            <div>
+              <p>
+                <strong>
+                  {{title}}
+                </strong>
+              </p>
+              <p>
+                {{maximum}}
+              </p>
+              <p>
+                {{price}}
+              </p>
+              <a class="link__blue calendar__modal-link">
+                Más información
+              </a>
+              <div class="card-course__element calendar__modal" id="">
+                <a class="calendar__modal-close" href="#">
+                  x
+                </a>
+                <div class="col-lg-12 p-0">
+                  <div class="card-course__img">
+                    <a>
+                      <img
+                        alt=""
+                        class="image"
+                        src="https://educaixa.org/documents/40415705/53887618/pruebasedu2.jpg/bc3d48fd-d310-4d17-99b5-4a6aff3a5d67?t=1605525095141"
+                      />
+                    </a>
+                  </div>
+                  <div>
+                    <div
+                      class="d-flex mb-1 typografy__five justify-content-between"
+                    >
+                      <span class="color-educaixa-secundary">
+                        Activitat |
+                        <span class="circular-Std-Bold">
+                          Visita guiada
+                        </span>
+                      </span>
+                      <label class="card-course__tag">
+                        afegida
+                      </label>
+                    </div>
+                    <a
+                      class="link__black link--no-underline"
+                      href="https://educaixa.org/es/-/aprendizaje-colaborativo"
+                    >
+                      <h3 class="card-course__title">
+                        Poètiques de l'emoció
+                      </h3>
+                    </a>
+                    <p class="card-course__summary">
+                      Nulla at ipsum vitae neque consectetur dictum. Vivamus
+                        vitae dolor augue. Cras ornare tempor scelerisque. Nunc
+                        libero lorem, ornare ac venenatis eget, faucibus eget
+                        sem. Pellentesque posuere massa ut.
+                    </p>
+                  </div>
+                  <div class="card-course__link-container">
+                    <a
+                      onclick=""
+                      class="link__black link--underline"
+                      href="https://educaixa.org/es/resultados?q=metodologías de innovación"
+                    >
+                      Voz,
+                    </a>
+                    <a
+                      onclick=""
+                      class="link__black"
+                      href="https://educaixa.org/es/resultados?q=aprendizaje cooperativo"
+                    >
+                      Cuerpo
+                    </a>
+                    ,
+                    <a
+                      onclick=""
+                      class="link__black link--underline"
+                      href="https://educaixa.org/es/resultados?q=EduCaixaTalks"
+                    >
+                      Teatro
+                    </a>
+                  </div>
+                  <div class="card-course__description">
+                    <p class="circular-Std-Bold">
+                      CaixaForum Barcelona
+                    </p>
+                    <p class="circular-Std-Bold">
+                      Disponible a partir 23.01.2019
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HIDE/SHOW LINK -->
+          <a
+            id="toggle-{{id}}"
+            class="toggle-link link__blue link--underline down-arrow"
+            onclick="toggleSessions('{{id}}')"
+          >
+            Mostra les sessions
+          </a>
+
+          <!-- SESSIONS CONTAINER -->
+          <div id="sessions-{{id}}" style="display: none">
+            {{#each events}}
+              {{#if empty}}
+                <div
+                  class="calendar__item large calendar__border--light-gray"
+                  data-date="2021-01-04"
+                  data-start="2021-01-04T08:30:00"
+                  data-end="2021-01-04T11:00:00"
+                >
+                  <div>
+                    <p class="color-grayLight">
+                      {{time}}
+                    </p>
+                    <p class="mb-3 color-gray">
+                      <span class="item-activity__ico--alert"></span>
+                      {{remaining}}
+                    </p>
+                    <a href="#" class="link__black">
+                      <span class="item-activity__ico--plus"></span>
+                      Agegeix a la
+                    lista d´espera
+                    </a>
+                  </div>
+                </div>
+              {{else}}
+                <div
+                  class="calendar__item large calendar__border--blue"
+                  data-date="2021-01-20"
+                  data-start="2021-01-20T11:00:00"
+                  data-end="2021-01-20T13:00:00"
+                >
+                  <div>
+                    <p class="color-educaixa-secundary">
+                      {{time}}
+                    </p>
+                    <p class="color-gray">
+                      <span class="item-activity__ico--alert"></span>
+                      {{remaining}}
+                    </p>
+                    <select
+                      name="form-class"
+                      class="form-select form-control error-field"
+                    >
+                      <option value="volvo">
+                        Grup 1. 1r de Batxillerat A
+                      </option>
+                      <option value="saab">
+                        Grup 2. 1r de Batxillerat A
+                      </option>
+                    </select>
+                    <!-- <datalist
+                      class="form-select form-control error-field"
+                      id="select-2"
+                      name="select-2"
+                      title="perfil-profesional"
+                      aria-errormessage="select-2Helper"
+                      aria-invalid="true"
+                    >
+                      <div
+                        class="d-flex align-items-center calendar__item-datalist"
+                      >
+                        <div class="calendar__notification one me-2">
+                          1
+                        </div>
+                        <strong>
+                          Grup 1. 1r de Batxillerat A
+                        </strong>
+                      </div>
+                    </datalist> -->
+                  </div>
+                </div>
+              {{/if}}
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+    </script>
+
+    <!-- <script>
+      let footerButton =
+        '<div class="calendar__item p-0"><button class="button__primary-outline  calendar__button typografy__five">Detalle del día</button></div></div>';
+      let allDates = [],
+        initialViewP,
+        defaultViewI = initialViewE();
+      let subtitle = "CaixaForum Barcelona",
+        showSubtitle = false,
+        midnight = "23:00";
+      let listItem = (events = generateEvents());
+
+      var calendarEl = document.getElementById("fullcalendar");
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: "es",
+        headerToolbar: {
+          left: "timeGridDay,dayGridWeek,listWeek,listDay prev",
+          center: "title",
+          right: "next",
+          titleFormat: "'Hello, World!'",
+        },
+        height: "auto",
+        initialDate: "2021-01-05",
+        navLinks: true, // can click day/week names to navigate views
+        editable: true,
+        dayMaxEvents: true, // allow "more" link when too many events
+        defaultView: "week",
+        slotEventOverlap: false,
+        initialView: defaultViewI,
+        editable: true,
+        axisFormat: "H:mm a",
+        slotLabelFormat: {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        },
+
+        views: {
+          week: {
+            titleFormat: { year: "numeric", month: "long", day: "2-digit" },
+            titleRangeSeparator: " al ",
+          },
+        },
+        dayHeaderFormat: {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          omitCommas: false,
+        },
+        columnFormat: {
+          month: "long",
+          week: "long",
+          day: "2-digit",
+        },
+        customRender: true,
+        events: events,
+        hiddenDays: [6, 0],
+        allDaySlot: false,
+        eventContent: function (info, event, element, view) {
+          return { html: info.event.extendedProps.customHtml };
+        },
+        eventDidMount: function (info, event, element) {
+          let week = $(".btn-dayGridWeek").text();
+          let day = $(".btn-dayGridDay").text();
+          /*if(!showSubtitle){
+            $('.fc-toolbar-chunk:nth-child(2)').append('<p class="fullcalendar-subtitle">'+subtitle +'</p>')
+            showSubtitle=true;
+          }*/
+          if (info.view.type == "dayGridWeek") {
+            //$('.fc-toolbar-title').html(week + ' del ' + info.view.title);
+            // $('.fc-toolbar-title').html('Semana del ' + info.view.title);
+          }
+          if (info.view.type == "timeGridDay") {
+            if (info.event.extendedProps.customHtml == footerButton) {
+              info.event.remove();
+            }
+          }
+
+          switchButtonDayWeek();
+        },
+        eventClick: function (info) {
+          var eventObj = info.event;
+          console.log("eventObj", eventObj);
+          info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
+
+          if (eventObj.title == "button") {
+            console.log("calendar__button");
+          }
+        },
+        columnHeaderText: function (date) {
+          console.log("IEEP =>" + date);
+          if (date.getDay() === 1) {
+            return "Lunes " + date.getDay() + " de enero";
+          }
+          if (date.getDay() === 2) {
+            return "Martes " + date.getDay() + " de enero";
+          }
+          if (date.getDay() === 3) {
+            return "Miércoles " + date.getDay() + " de enero";
+          }
+          if (date.getDay() === 4) {
+            return "Jueves " + date.getDay() + " de enero";
+          }
+
+          if (date.getDay() === 5) {
+            return "Viernes " + date.getDay() + " de enero";
+          }
+        },
+      });
+
+      calendar.render();
+
+      function generateEvents() {
+        (date = []), (i = 0);
+        (events = []), (content = {});
+        $(".calendar__fullcalendar-items div").each(function (index, elem) {
+          if (this.getAttribute("data-date") != null) {
+            var content = {
+              html: this,
+            };
+            let event = {
+              start: this.getAttribute("data-start"),
+              end: this.getAttribute("data-end"),
+              title: this.getAttribute("data-start"),
+              extendedProps: content,
+              classNames: this.getAttribute("data-start"),
+              groupId: i++,
+              customHtml: content.html.outerHTML,
+            };
+            events.push(event);
+            allDates.push(this.getAttribute("data-date"));
+          }
+        });
+
+        allDates = allDates.filter((item, index) => {
+          return allDates.indexOf(item) === index;
+        });
+
+        allDates.forEach((date) => {
+          events.push({
+            start: date + "T" + midnight,
+            end: date,
+            groupId: date,
+            customHtml: footerButton,
+            title: "button",
+            url: "",
+          });
+        });
+        return events;
+      }
+
+      function initialViewE() {
+        if (window.innerWidth > 1200) {
+          initialViewP = "dayGridWeek";
+        }
+        if (window.innerWidth < 1200) {
+          if ($(".dayGridWeek").is(":checked")) {
+            initialViewP = "listWeek";
+            $(".fc-listWeek-button").click();
+          }
+          if ($(".dayGridDay").is(":checked")) {
+            initialViewP = "listDay";
+            $(".fc-listDay-button").click();
+          }
+        }
+        return initialViewP;
+      }
+
+      function switchButtonDayWeek() {
+        $(".calendar__period-button input").click(function () {
+          if (window.innerWidth > 1200) {
+            if ($(".dayGridDay").is(":checked")) {
+              $(".fc-timeGridDay-button").click();
+            }
+            if ($(".dayGridWeek").is(":checked")) {
+              $(".fc-dayGridWeek-button").click();
+            }
+          }
+          if (window.innerWidth < 1200) {
+            if ($(".dayGridWeek").is(":checked")) {
+              initialViewP = "listWeek";
+              $(".fc-listWeek-button").click();
+            }
+            if ($(".dayGridDay").is(":checked")) {
+              initialViewP = "listDay";
+              $(".fc-listDay-button").click();
+            }
+          }
+        });
+      }
+
+      $(".calendar__modal-link").on("click", function () {
+        $(this).toggleClass("open");
+      });
+
+      $(".calendar__modal-close").on("click", function () {
+        $(".calendar__modal-link").removeClass("open");
+      });
+    </script> -->
+
+    <!-- CUSTOM JS DAILY CALENDAR -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="../src/js/dailyCalendar.js"></script>
+  </body>
+</html>
