@@ -28,826 +28,6 @@
   </head>
 
   <body>
-    <main>
-      <div class="container">
-        <h1>Planificador de visites per a grups</h1>
-        <div class="planificador__header">
-          <ol class="steps-process">
-            <li>1 <span> | Tria les activitats</span></li>
-            <li class="active">2 <span>| Assigna groups i dates</span></li>
-            <li>3 <span>| Trie els horaris</span></li>
-            <li>4 <span>| Resum</span></li>
-          </ol>
-          <div class="planificador__content-description">
-            <div>
-              <p class="mb-2 typografy__three">
-                Tria el group amb qué vols fer Iáctivitat i assigna-li una data
-                aproximada.
-              </p>
-              <p class="planificador__list-course">
-                <span class="color-educaixa-secundary">Activitat 1 </span>
-                Comunica´t. Taller déxpressió corporal
-              </p>
-              <p class="planificador__list-course">
-                <span class="color-educaixa-secundary">Activitat 2 </span>
-                Comunica´t. Taller déxpressió corporal
-              </p>
-            </div>
-            <div class="card-help">
-              <img
-                class="card-help__ico--help"
-                src="../src/images/encuesta.png"
-              />
-              <div>
-                <p>Necesitas ayuda para planificar?</p>
-                <p>
-                  Llama al teléfono
-                  <span class="color-caixa-blue">93 456 78 90</span> o escribe a
-                  <u class="color-caixa-blue">pedidos@educaixa.com</u>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="group-assignment__container">
-          <h3 class="mb-3 circular-Std-Book typografy__two">
-            <span class="circular-Std-Bold"
-              >Assigna-li una data a l´activitat</span
-            >
-            Selecciona el día o la setmana per realizar l´activitat.
-          </h3>
-          <div class="calendar__period">
-            <div class="calendar__period-container">
-              <div
-                class="btn-group calendar__period-button"
-                role="group"
-                aria-label="Basic radio toggle button group"
-              >
-                <input
-                  type="radio"
-                  class="btn-check dayGridDay"
-                  name="btnradio"
-                  id="btnradio1"
-                  autocomplete="off"
-                />
-                <label
-                  class="btn btn-outline-primary btn-dayGridDay"
-                  for="btnradio1"
-                  >Día</label
-                >
-                <input
-                  type="radio"
-                  class="btn-check dayGridWeek"
-                  name="btnradio"
-                  id="btnradio2"
-                  autocomplete="off"
-                  checked
-                />
-                <label
-                  class="btn btn-outline-primary btn-dayGridWeek"
-                  for="btnradio2"
-                  >Semana</label
-                >
-              </div>
-            </div>
-            <div class="calendar__period-region">
-              <div class="calendar__period-region-item">
-                <span
-                  class="calendar__leyend blue calendar__leyend-description"
-                ></span>
-                Activitat triada
-              </div>
-              <div class="calendar__period-region-item">
-                <span
-                  class="calendar__leyend black calendar__leyend-description"
-                ></span>
-                Nova activitat triada
-              </div>
-              <div class="calendar__period-region-item">
-                <span
-                  class="calendar__leyend calendar__leyend-description calendar__outer-blue"
-                ></span>
-                Sessions triades
-              </div>
-            </div>
-          </div>
-          <div class="calendar__summary">
-            <p class="mb-2">
-              Aquí se mostrará el
-              <strong>resumen de las sesiones seleccionadas.</strong>
-            </p>
-            <p>Aún no has seleccionado ningún curso</p>
-          </div>
-          <div class="calendar__summary">
-            <p class="mb-2">
-              Has<strong> seleccionado</strong> las siguientes sessions
-              disponibles.
-            </p>
-            <div class="calendar__summary-item">
-              <div class="col-lg-6 calendar__summary-class">
-                <div class="d-flex align-items-center">
-                  <div class="calendar__notification one me-2">1</div>
-                  <strong> Grup 1. 1r de Batxillerat A</strong>
-                </div>
-                <p class="color-gray">
-                  <a href="#" class="color-educaixa-secundary"
-                    >Comunicat. Taller de expression corporal |</a
-                  >
-                  26.01.19 - 9:30h
-                </p>
-                <p class="color-gray">
-                  <a href="#" class="color-educaixa-secundary"
-                    >Comunicat. Taller de expression corporal |</a
-                  >
-                  26.01.19 - 9:30h
-                </p>
-              </div>
-              <div class="col-lg-6 calendar__summary-class">
-                <div class="d-flex align-items-center">
-                  <div class="calendar__notification two me-2">2</div>
-                  <strong> Grup 1. 1r de Batxillerat A</strong>
-                </div>
-                <p class="color-gray">
-                  <a href="#" class="color-educaixa-secundary"
-                    >Comunicat. Taller de expression corporal |</a
-                  >
-                  26.01.19 - 9:30h
-                </p>
-                <p class="color-gray">
-                  <a href="#" class="color-educaixa-secundary"
-                    >Comunicat. Taller de expression corporal |</a
-                  >
-                  26.01.19 - 9:30h
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- <div id="fullcalendar" class="calendar__fullcalendar"></div> -->
-          <!-- <div>
-            <a class="link__blue link--underline">Altres activitats del dia</a>
-          </div> -->
-        </div>
-
-        <!-- <div class="col-lg-12 planificador__footer">
-          <div class="">
-            <button
-              class="button__secundary-outline"
-              id=""
-              onclick=""
-              type="button"
-            >
-              <span class="lfr-btn-label">Anterior</span>
-            </button>
-          </div>
-          <div class="">
-            <button
-              class="button__secundary button__secundary--disable"
-              id=""
-              onclick=""
-              type="button"
-            >
-              <span class="lfr-btn-label">Trie els horario</span>
-            </button>
-          </div>
-        </div> -->
-        <!-- <div class="col-lg-12 planificador__footer">
-            <div class="">
-              <button
-                class="rounded button__outline-blue-secondary"
-                id=""
-                onclick=""
-                type="button"
-              >
-                <span class="lfr-btn-label">Anterior</span>
-              </button>
-            </div>
-            <div class="">
-              <button
-                class="rounded button__secundary"
-                id=""
-                onclick=""
-                type="button"
-              >
-                <span class="lfr-btn-label">Trie els horario</span>
-              </button>
-            </div>
-          </div> -->
-        <div class="calendar__fullcalendar-items">
-          <div
-            data-date="2021-01-05"
-            data-start="2021-01-05T10:00:00"
-            data-end="2021-01-05T12:30:00"
-          >
-            <div class="calendar__item p-0">
-              <div class="calendar__leyend blue"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a class="link__blue calendar__modal-link">Más información</a>
-                <div class="card-course__element calendar__modal" id="">
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div class="col-lg-12 p-0">
-                    <div class="card-course__img">
-                      <a>
-                        <img
-                          alt=""
-                          class="image"
-                          src="https://educaixa.org/documents/40415705/53887618/pruebasedu2.jpg/bc3d48fd-d310-4d17-99b5-4a6aff3a5d67?t=1605525095141"
-                        />
-                      </a>
-                    </div>
-                    <div>
-                      <div
-                        class="d-flex mb-1 typografy__five justify-content-between"
-                      >
-                        <span class="color-educaixa-secundary"
-                          >Activitat |
-                          <span class="circular-Std-Bold"
-                            >Visita guiada</span
-                          ></span
-                        >
-                        <label class="card-course__tag">afegida</label>
-                      </div>
-                      <a
-                        class="link__black link--no-underline"
-                        href="https://educaixa.org/es/-/aprendizaje-colaborativo"
-                      >
-                        <h3 class="card-course__title">
-                          Poètiques de l'emoció
-                        </h3>
-                      </a>
-                      <p class="card-course__summary">
-                        Nulla at ipsum vitae neque consectetur dictum. Vivamus
-                        vitae dolor augue. Cras ornare tempor scelerisque. Nunc
-                        libero lorem, ornare ac venenatis eget, faucibus eget
-                        sem. Pellentesque posuere massa ut.
-                      </p>
-                    </div>
-                    <div class="card-course__link-container">
-                      <a
-                        onclick=""
-                        class="link__black link--underline"
-                        href="https://educaixa.org/es/resultados?q=metodologías de innovación"
-                        >Voz,
-                      </a>
-                      <a
-                        onclick=""
-                        class="link__black"
-                        href="https://educaixa.org/es/resultados?q=aprendizaje cooperativo"
-                        >Cuerpo</a
-                      >,
-                      <a
-                        onclick=""
-                        class="link__black link--underline"
-                        href="https://educaixa.org/es/resultados?q=EduCaixaTalks"
-                        >Teatro</a
-                      >
-                    </div>
-                    <div class="card-course__description">
-                      <p class="circular-Std-Bold">CaixaForum Barcelona</p>
-                      <p class="circular-Std-Bold">
-                        Disponible a partir 23.01.2019
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T18:30:00"
-            data-end="2021-01-06T20:00:00"
-          >
-            <div class="calendar__item">
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="" class="link__blue">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T18:30:00"
-            data-end="2021-01-06T20:00:00"
-          >
-            <div class="calendar__item">
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="" class="link__blue">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-11"
-            data-start="2021-01-11T16:30:00"
-            data-end="2021-01-11T18:30:00"
-          >
-            <div class="calendar__item calendar__border--blue p-0">
-              <div class="calendar__leyend blue"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="" class="link__blue">Más información</a>
-              </div>
-              <div>
-                <div class="calendar__notification one">1</div>
-                <div class="calendar__notification two">2</div>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuento
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuento
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió test</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuentoo
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió test</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuentoo
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió test</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuentoo
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió test</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuentoo
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió test</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuentoo
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió test</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuentoo
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            data-date="2021-01-06"
-            data-start="2021-01-06T12:30:00"
-            data-end="2021-01-06T15:30:00"
-          >
-            <div class="calendar__item calendar__border p-0">
-              <div class="calendar__leyend black"></div>
-              <div>
-                <p><strong>Comunica´t. Taller d´expressió test</strong></p>
-                <p>Máx 30 alumnes</p>
-                <p>25$ per grup</p>
-                <a href="#" class="mb-3 d-block calendar__modal-link">
-                  <span class="item-activity__ico--porcent"></span>
-                  Descuentoo
-                </a>
-                <div
-                  class="card-course__element typografy__four calendar__modal"
-                  id=""
-                >
-                  <a class="calendar__modal-close" href="#">x</a>
-                  <div>
-                    <span class="item-activity__ico--porcent"></span>
-                    <span>Pack descompte</span>
-                  </div>
-                  <p class="circular-Std-Book">
-                    Taller Comunica’t + Visita guiada Blau
-                  </p>
-                  <span class="color-grayMedium circular-Std-Bold"
-                    >50% descompte</span
-                  >
-                </div>
-
-                <a href="" class="link__black">Más información</a>
-              </div>
-            </div>
-          </div>
-          <div
-            class="calendar__item calendar__border p-0"
-            data-date="2021-01-07"
-            data-start="2021-01-07T07:30:00"
-            data-end="2021-01-07T10:30:00"
-          >
-            <div class="calendar__leyend black"></div>
-            <div>
-              <p><strong>Comunica´t. Taller d´expressió corporal</strong></p>
-              <p>Máx 30 alumnes</p>
-              <p>25$ per grup</p>
-              <a href="#" class="mb-3 d-block calendar__modal-link">
-                <span class="item-activity__ico--porcent"></span>
-                Descuento
-              </a>
-              <a href="" class="link__black">Más información</a>
-            </div>
-          </div>
-          <div
-            class="calendar__item large calendar__border--light-gray"
-            data-date="2021-01-04"
-            data-start="2021-01-04T08:30:00"
-            data-end="2021-01-04T11:00:00"
-          >
-            <div>
-              <p class="color-grayLight">9:30 - 11:30 h</p>
-              <p class="mb-3 color-gray">
-                <span class="item-activity__ico--alert"></span> Només 10 places
-                disponibles
-              </p>
-              <a href="#" class="link__black"
-                ><span class="item-activity__ico--plus"></span>Agegeix a la
-                lista d´espera</a
-              >
-            </div>
-          </div>
-          <div
-            class="calendar__item large calendar__border--light-gray"
-            data-date="2021-01-06"
-            data-start="2021-01-06T13:30:00"
-            data-end="2021-01-06T14:30:00"
-          >
-            <div>
-              <p class="color-grayLight">9:30 - 11:30 h</p>
-              <p class="mb-3 color-gray">
-                <span class="item-activity__ico--alert"></span> Només 10 places
-                disponibles
-              </p>
-              <a href="#" class="link__black"
-                ><span class="item-activity__ico--plus"></span>Agegeix a la
-                lista d´espera</a
-              >
-            </div>
-          </div>
-          <div
-            class="calendar__item large calendar__border--light-gray"
-            data-date="2021-01-04"
-            data-start="2021-01-04T09:00:00"
-            data-end="2021-01-04T10:30:00"
-          >
-            <div>
-              <p class="color-grayLight">9:30 - 11:30 h</p>
-              <p class="mb-3 color-gray">
-                <span class="item-activity__ico--alert"></span> Només 10 places
-                disponibles
-              </p>
-              <a href="#" class="link__black"
-                ><span class="item-activity__ico--plus"></span>Agegeix a la
-                lista d´espera</a
-              >
-            </div>
-          </div>
-          <div
-            class="calendar__item large calendar__border--blue"
-            data-date="2021-01-20"
-            data-start="2021-01-20T11:00:00"
-            data-end="2021-01-20T13:00:00"
-          >
-            <div>
-              <p class="color-educaixa-secundary">26 places disponibles</p>
-              <p class="color-gray">
-                <span class="item-activity__ico--alert"></span> Només 10 places
-                disponibles
-              </p>
-              <datalist
-                class="form-select form-control error-field"
-                id="select-2"
-                name="select-2"
-                title="perfil-profesional"
-                aria-errormessage="select-2Helper"
-                aria-invalid="true"
-              >
-                <div class="d-flex align-items-center calendar__item-datalist">
-                  <div class="calendar__notification one me-2">1</div>
-                  <strong> Grup 1. 1r de Batxillerat A</strong>
-                </div>
-              </datalist>
-            </div>
-          </div>
-          <div
-            class="calendar__item large calendar__border--blue"
-            data-date="2021-01-05"
-            data-start="2021-01-05T11:00:00"
-            data-end="2021-01-05T13:00:00"
-          >
-            <div>
-              <p class="color-educaixa-secundary">26 places disponibles</p>
-              <p class="color-gray">
-                <span class="item-activity__ico--alert"></span> Només 10 places
-                disponibles
-              </p>
-              <datalist
-                class="form-select form-control error-field"
-                id="select-2"
-                name="select-2"
-                title="perfil-profesional"
-                aria-errormessage="select-2Helper"
-                aria-invalid="true"
-              >
-                <!-- <option class="" value=""> -->
-                <div class="d-flex align-items-center calendar__item-datalist">
-                  <div class="calendar__notification two me-2">2</div>
-                  <strong> Grup 1. 1r de Batxillerat A</strong>
-                </div>
-                <!-- </option> -->
-              </datalist>
-            </div>
-          </div>
-          <div
-            class="calendar__item calendar__border--light-gray"
-            data-date="2021-01-15"
-            data-start="2021-01-15T11:00:00"
-            data-end="2021-01-15T13:00:00"
-          >
-            <div>
-              <p class="color-educaixa-secundary">26 places disponibles</p>
-              <p class="color-gray">
-                <span class="item-activity__ico--alert"></span> Només 10 places
-                disponibles
-              </p>
-              <datalist
-                class="form-select form-control error-field"
-                id="select-2"
-                name="select-2"
-                title="perfil-profesional"
-                aria-errormessage="select-2Helper"
-                aria-invalid="true"
-              >
-                <option
-                  class="calendar__item-datalist calendar__item-datalist"
-                  value=""
-                >
-                  Tria grup
-                </option>
-              </datalist>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-
     <div id="daily-calendar"></div>
 
     <button onclick="updateData()">Random day</button>
@@ -901,14 +81,14 @@
                       </strong>
                     </p>
                     <p class="maximum">
-                      {{maximum}}
+                      {{product.capacity}}
                     </p>
                     <p class="price">
-                      {{price}}
+                      {{product.price}}
                     </p>
                     <a class="discount mb-3 d-block calendar__modal-link">
                       <span class="item-activity__ico--porcent"></span>
-                      Descuento
+                      Descompte
                     </a>
                     <div
                       class="card-course__element typografy__four calendar__modal"
@@ -923,16 +103,17 @@
                           Pack descompte
                         </span>
                       </div>
-                      <p class="circular-Std-Book">
-                        Taller Comunica’t + Visita guiada Blau
-                      </p>
-                      <span class="color-grayMedium circular-Std-Bold">
-                        50% descompte
-                      </span>
+                      {{#each promotions}}
+                        <p
+                          class="circular-Std-Book color-grayMedium circular-Std-Bold"
+                        >
+                          {{name}}
+                        </p>
+                      {{/each}}
                     </div>
                   </div>
                   <a class="link__blue calendar__modal-link">
-                    Más información
+                    Més informació
                   </a>
                   <div class="card-course__element calendar__modal" id="">
                     <a class="calendar__modal-close">
@@ -1012,30 +193,27 @@
               </div>
               <!-- HIDE/SHOW LINK -->
               <a
-                id="toggle-{{id}}"
+                id="toggle-{{activityPlanId}}"
                 class="toggle-link link__blue link--underline down-arrow"
-                onclick="toggleSessions('{{id}}')"
+                onclick="toggleSessions('{{activityPlanId}}')"
               >
                 Mostra les sessions
               </a>
               <!-- SESSIONS CONTAINER -->
               <div class="sessions-mobile">
-                <div id="sessions-{{id}}" style="display: none">
-                  {{#each events}}
+                <div id="sessions-{{activityPlanId}}" style="display: none">
+                  {{#each sessions}}
                     {{#if empty}}
                       <div
                         class="calendar__item large calendar__border--light-gray"
-                        data-date="2021-01-04"
-                        data-start="2021-01-04T08:30:00"
-                        data-end="2021-01-04T11:00:00"
                       >
                         <div>
                           <p class="color-grayLight">
-                            {{startTime}} - {{endTime}}h
+                            {{startDatetime}} - {{endDatetime}}h
                           </p>
                           <p class="mb-3 color-gray">
                             <span class="item-activity__ico--alert"></span>
-                            {{remaining}}
+                            {{maxCapacity}}
                           </p>
                           <a href="#" class="link__black">
                             <span class="item-activity__ico--plus"></span>
@@ -1044,28 +222,23 @@
                         </div>
                       </div>
                     {{else}}
-                      <div
-                        class="calendar__item large calendar__border--blue"
-                        data-date="2021-01-20"
-                        data-start="2021-01-20T11:00:00"
-                        data-end="2021-01-20T13:00:00"
-                      >
+                      <div class="calendar__item large calendar__border--blue">
                         <div>
                           <p class="color-educaixa-secundary">
-                            {{startTime}} - {{endTime}}
+                            {{convertTime startDatetime}} - {{convertTime endDatetime}}
                           </p>
                           <p class="color-gray">
                             <span class="item-activity__ico--alert"></span>
-                            {{remaining}}
+                            {{availability}}
                           </p>
                           <select
                             name="form-class"
                             class="form-select form-control error-field"
                           >
-                            <option value="volvo">
+                            <option value="option-1">
                               Grup 1. 1r de Batxillerat A
                             </option>
-                            <option value="saab">
+                            <option value="option-2">
                               Grup 2. 1r de Batxillerat A
                             </option>
                           </select>
@@ -1081,22 +254,24 @@
         <div class="events" id="calendar-events">
           {{#each activities}}
             <div class="activity" style="width: 100%; margin: 0 1rem;">
-              <div id="sessions-{{id}}" style="position: relative;">
-                {{#each events}}
+              <div id="sessions-{{activityPlanId}}" style="position: relative;">
+                {{#each sessions}}
                   {{#if empty}}
                     <div
                       class="calendar__item large calendar__border--light-gray"
                       style="position: absolute; margin-top: {{
-                        convertOffset startTime
-                      }}; height: {{convertHeight startTime endTime}};"
+                        convertOffset startDatetime
+                      }}; height: {{convertHeight startTime endDatetime}};"
                     >
                       <div>
                         <p class="color-grayLight">
-                          {{startTime}} - {{endTime}}
+                          {{convertTime startDatetime}} - {{convertTime
+                            endDatetime
+                          }}
                         </p>
                         <p class="mb-3 color-gray">
                           <span class="item-activity__ico--alert"></span>
-                          {{remaining}}
+                          {{availability}}
                         </p>
                         <a href="#" class="link__black">
                           <span class="item-activity__ico--plus"></span>
@@ -1108,16 +283,16 @@
                     <div
                       class="calendar__item large calendar__border--blue"
                       style="position: absolute; margin-top: {{
-                        convertOffset startTime
-                      }}; height: {{convertHeight startTime endTime}};"
+                        convertOffset startDatetime
+                      }}; height: {{convertHeight startDatetime endDatetime}};"
                     >
                       <div>
                         <p class="color-educaixa-secundary">
-                          {{startTime}} - {{endTime}}
+                          {{convertTime startDatetime}} - {{convertTime endDatetime}}
                         </p>
                         <p class="color-gray">
                           <span class="item-activity__ico--alert"></span>
-                          {{remaining}}
+                          {{availability}}
                         </p>
                         <select
                           name="form-class"
