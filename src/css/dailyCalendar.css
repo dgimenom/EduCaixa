@@ -90,6 +90,9 @@
 .calendar__item .calendar__info div p {
   margin: 0;
 }
+.calendar__item div p {
+  margin: 0.2rem 0;
+}
 .calendar__item .calendar__info div .discount{
   color: #4176DB;
 }

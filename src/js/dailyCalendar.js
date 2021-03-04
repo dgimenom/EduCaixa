@@ -88,7 +88,41 @@ const data =
         ],
         "sessions":[
           {
-            "startDatetime":"2021-03-03T09:30:00",
+            "startDatetime":"2021-03-03T09:00:00",
+            "endDatetime":"2021-03-03T18:00:00",
+            "availability":33,
+            "maxCapacity":40,
+          },
+        ],
+      },
+      {
+        "fblcActivityId":"3",
+        "eventId":"3",
+        "title":"Comunica´t. Taller d´expressió corporal 2",
+        "imageUrl":"http://www.google.es",
+        "activityPlanId":"1111",
+        "friendlyUrl":"http://www.google.es",
+        "product":{
+          "​centerName":"",
+          "date":"",
+          "capacity":"Máx 230 alumnes",
+          "price":"35$ per grup",
+          "locationId":"",
+        },
+        "matched":false,
+        "promotions":[
+          {
+            "​id":1,
+            "name":"Taller Comunicate + Visita guiada 50% descuento",
+            "status":"ACTIVE",
+            "type":"PROMOTION",
+            "startDate":"2021-03-03T09:30:00",
+            "endDate":"2021-03-03T09:30:00",
+          },
+        ],
+        "sessions":[
+          {
+            "startDatetime":"2021-03-03T09:00:00",
             "endDatetime":"2021-03-03T18:00:00",
             "availability":33,
             "maxCapacity":40,
@@ -98,7 +132,6 @@ const data =
     ],
   },
 ];
-
 const template = 
 `
 <div class="daily-calendar-container">
@@ -140,7 +173,11 @@ const template =
     <div class="activity" style="width: 100%; margin: 0 1rem;">
       <!-- ACTIVITY CONTAINER -->
       <div class="calendar__item p-0">
+        {{#if matched}}
+        <div class="calendar__leyend blue"></div>
+        {{else}}
         <div class="calendar__leyend black"></div>
+        {{/if}}
         <div class="calendar__info">
           <div>
             <p class="title">
@@ -277,11 +314,11 @@ const template =
               >
                 <div>
                   <p class="color-grayLight">
-                    {{startDatetime}} - {{endDatetime}}h
+                    {{convertTime startDatetime}} - {{convertTime endDatetime}} h
                   </p>
                   <p class="mb-3 color-gray">
                     <span class="item-activity__ico--alert"></span>
-                    {{maxCapacity}}
+                    {{maxCapacity}} places disponibles
                   </p>
                   <a href="#" class="link__black">
                     <span class="item-activity__ico--plus"></span>
@@ -293,11 +330,10 @@ const template =
               <div class="calendar__item large calendar__border--blue">
                 <div>
                   <p class="color-educaixa-secundary">
-                    {{convertTime startDatetime}} - {{convertTime endDatetime}}
+                    {{convertTime startDatetime}} - {{convertTime endDatetime}} h
                   </p>
                   <p class="color-gray">
-                    <span class="item-activity__ico--alert"></span>
-                    {{availability}}
+                    {{maxCapacity}} places disponibles
                   </p>
                   <select
                     name="form-class"
@@ -327,15 +363,11 @@ const template =
           {{#if empty}}
             <div
               class="calendar__item large calendar__border--light-gray"
-              style="position: absolute; margin-top: {{
-                convertOffset startDatetime
-              }}; height: {{convertHeight startTime endDatetime}};"
+              style="position: absolute; margin-top: {{convertOffset startDatetime}}; height: {{convertHeight startTime endDatetime}};"
             >
               <div>
                 <p class="color-grayLight">
-                  {{convertTime startDatetime}} - {{convertTime
-                    endDatetime
-                  }}
+                  {{convertTime startDatetime}} - {{convertTime endDatetime}} h
                 </p>
                 <p class="mb-3 color-gray">
                   <span class="item-activity__ico--alert"></span>
@@ -350,17 +382,14 @@ const template =
           {{else}}
             <div
               class="calendar__item large calendar__border--blue"
-              style="position: absolute; margin-top: {{
-                convertOffset startDatetime
-              }}; height: {{convertHeight startDatetime endDatetime}};"
+              style="position: absolute; margin-top: {{convertOffset startDatetime}}; height: {{convertHeight startDatetime endDatetime}};"
             >
               <div>
                 <p class="color-educaixa-secundary">
-                  {{convertTime startDatetime}} - {{convertTime endDatetime}}
+                  {{convertTime startDatetime}} - {{convertTime endDatetime}} h
                 </p>
                 <p class="color-gray">
-                  <span class="item-activity__ico--alert"></span>
-                  {{availability}}
+                  {{availability}} places disponibles
                 </p>
                 <select
                   name="form-class"
@@ -383,22 +412,23 @@ const template =
 </div>
 </div>
 `;
-
-const CALENDAR_HEIGHT = 49.375;
+const CALENDAR_HEIGHT = 35.4375;
 const TIME_SLOTS = 9;
 
-// HANDLEBAR PIPES (calculate styles to properly place the events in the daily calendar)
+// HANDLEBAR PIPES
 Handlebars.registerHelper("convertTime", function (time) {
   const date = new Date(time);
   const currentHours = ("0" + date.getHours()).substr(-2);
   const currentMinutes = ("0" + date.getMinutes()).substr(-2);
   return `${currentHours}:${currentMinutes}`;
 });
+
 Handlebars.registerHelper("convertOffset", function (start) {
   const date = new Date(start)
   const startValue = parseInt(date.getHours() * 100 +  date.getMinutes());
   return (((startValue - 900) / 100) * CALENDAR_HEIGHT) / TIME_SLOTS + "rem";
 });
+
 Handlebars.registerHelper("convertHeight", function (start, end) {
   const startDate = new Date(start)
   const endDate = new Date(end)
