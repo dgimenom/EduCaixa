@@ -70,6 +70,30 @@
   display: flex;
 }
 
+.toggle-link {
+  cursor: pointer;
+}
+
+.calendar__modal-close {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 20px;
+}
+
+.calendar__item .calendar__info {
+  display: flex;
+  flex-direction: column;
+}
+.calendar__item .calendar__info div p {
+  margin: 0;
+}
+.calendar__item .calendar__info div .discount{
+  color: #4176DB;
+}
+
 @media screen and (max-width: 600px) {
   .daily-calendar-container .activities {
     flex-direction: column !important;
