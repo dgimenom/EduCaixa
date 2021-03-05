@@ -54,7 +54,7 @@ const data =
             "maxCapacity":40,
           },
           {
-            "startDatetime":"2021-03-03T16:30:00",
+            "startDatetime":"2021-03-03T16:00:00",
             "endDatetime":"2021-03-03T18:00:00",
             "availability":33,
             "maxCapacity":40,
@@ -217,7 +217,7 @@ const template =
               {{/each}}
             </div>
           </div>
-          <a class="link__blue calendar__modal-link">
+          <a class="more-info link__blue calendar__modal-link">
             Més informació
           </a>
           <div class="card-course__element calendar__modal" id="">
@@ -238,7 +238,7 @@ const template =
                 <div
                   class="d-flex mb-1 typografy__five justify-content-between"
                 >
-                  <span class="color-educaixa-secundary">
+                  <span class="color-educaixa-secundary session-time">
                     Activitat |
                     <span class="circular-Std-Bold">
                       Visita guiada
@@ -332,7 +332,7 @@ const template =
                   <p class="color-educaixa-secundary">
                     {{convertTime startDatetime}} - {{convertTime endDatetime}} h
                   </p>
-                  <p class="color-gray">
+                  <p class="color-gray session-places">
                     {{maxCapacity}} places disponibles
                   </p>
                   <select
@@ -385,10 +385,10 @@ const template =
               style="position: absolute; margin-top: {{convertOffset startDatetime}}; height: {{convertHeight startDatetime endDatetime}};"
             >
               <div>
-                <p class="color-educaixa-secundary">
+                <p class="color-educaixa-secundary session-time">
                   {{convertTime startDatetime}} - {{convertTime endDatetime}} h
                 </p>
-                <p class="color-gray">
+                <p class="color-gray session-places">
                   {{availability}} places disponibles
                 </p>
                 <select
