@@ -1,7 +1,7 @@
 const data = 
 [
   {
-    "​date":"03/03/2021",
+    "test":"2021-03-03T12:00:00",
     "week":true,
     "center":"CaixaForum Barcelona",
     "groups":[
@@ -131,9 +131,132 @@ const data =
       },
     ],
   },
+  {
+    "test":"2021-03-04T12:00:00",
+    "week":true,
+    "center":"CaixaForum Madrid",
+    "groups":[
+      {
+        "id":1,
+        "name":"Bachillerato A"
+      },
+      {
+        "id":2,
+        "name":"Bachillerato B"
+      },
+    ],
+    "activities":[
+      {
+        "fblcActivityId":"1",
+        "eventId":"1",
+        "title":"Comunica´t. Taller d´expressió corporal",
+        "imageUrl":"http://www.google.es",
+        "activityPlanId":"1111",
+        "friendlyUrl":"http://www.google.es",
+        "product":{
+          "​centerName":"",
+          "date":"",
+          "capacity":"Máx 230 alumnes",
+          "price":"35$ per grup",
+          "locationId":"",
+        },
+        "matched":true,
+        "promotions":[
+          {
+            "​id":1,
+            "name":"Taller Comunicate + Visita guiada 50% descuento",
+            "status":"ACTIVE",
+            "type":"PROMOTION",
+            "startDate":"2021-03-03T09:30:00",
+            "endDate":"2021-03-03T09:30:00",
+          },
+        ],
+        "sessions":[
+          {
+            "startDatetime":"2021-03-03T09:30:00",
+            "endDatetime":"2021-03-03T11:30:00",
+            "availability":11,
+            "maxCapacity":40,
+          },
+          {
+            "startDatetime":"2021-03-03T12:30:00",
+            "endDatetime":"2021-03-03T14:30:00",
+            "availability":22,
+            "maxCapacity":40,
+          },
+          {
+            "startDatetime":"2021-03-03T16:00:00",
+            "endDatetime":"2021-03-03T18:00:00",
+            "availability":33,
+            "maxCapacity":40,
+          },
+        ],
+      },
+      {
+        "fblcActivityId":"3",
+        "eventId":"3",
+        "title":"Comunica´t. Taller d´expressió corporal 2",
+        "imageUrl":"http://www.google.es",
+        "activityPlanId":"1111",
+        "friendlyUrl":"http://www.google.es",
+        "product":{
+          "​centerName":"",
+          "date":"",
+          "capacity":"Máx 230 alumnes",
+          "price":"35$ per grup",
+          "locationId":"",
+        },
+        "matched":false,
+        "promotions":[
+          {
+            "​id":1,
+            "name":"Taller Comunicate + Visita guiada 50% descuento",
+            "status":"ACTIVE",
+            "type":"PROMOTION",
+            "startDate":"2021-03-03T09:30:00",
+            "endDate":"2021-03-03T09:30:00",
+          },
+        ],
+        "sessions":[
+          {
+            "startDatetime":"2021-03-03T09:00:00",
+            "endDatetime":"2021-03-03T18:00:00",
+            "availability":33,
+            "maxCapacity":40,
+          },
+        ],
+      },
+    ],
+  },
 ];
 const template = 
 `
+<div class="time-day-container">
+<div class="fc-toolbar-chunk">
+  <button
+    class="fc-prev-button fc-button fc-button-primary"
+    type="button"
+    aria-label="prev"
+    onclick="previousDay()"  
+  >
+    <span class="fc-icon fc-icon-chevron-left"></span>
+  </button>
+</div>
+<div class="fc-toolbar-chunk">
+  <h2 class="time-day-title">{{convertDaily test}}</h2>
+  <h4 class="time-day-subtitle">{{center}}</h4>
+</div>
+<div class="fc-toolbar-chunk">
+  <button
+    class="fc-next-button fc-button fc-button-primary"
+    type="button"
+    aria-label="next"
+    onclick="nextDay()"
+  >
+    <span class="fc-icon fc-icon-chevron-right"></span>
+  </button>
+</div>
+</div>
 <div class="daily-calendar-container">
 <div class="empty"></div>
 <div class="time">
@@ -169,14 +292,18 @@ const template =
   </p>
 </div>
 <div class="activities">
+  {{#unless activities}}
+  <h3 class="warning">WARNING: This entry does not have activities!</h3>
+  {{/unless}}
+
   {{#each activities}}
     <div class="activity" style="width: 100%; margin: 0 1rem;">
       <!-- ACTIVITY CONTAINER -->
       <div class="calendar__item p-0">
         {{#if matched}}
-        <div class="calendar__leyend blue"></div>
+          <div class="calendar__leyend blue"></div>
         {{else}}
-        <div class="calendar__leyend black"></div>
+          <div class="calendar__leyend black"></div>
         {{/if}}
         <div class="calendar__info">
           <div>
@@ -314,7 +441,9 @@ const template =
               >
                 <div>
                   <p class="color-grayLight">
-                    {{convertTime startDatetime}} - {{convertTime endDatetime}} h
+                    {{convertTime startDatetime}} - {{convertTime
+                      endDatetime
+                    }} h
                   </p>
                   <p class="mb-3 color-gray">
                     <span class="item-activity__ico--alert"></span>
@@ -330,7 +459,9 @@ const template =
               <div class="calendar__item large calendar__border--blue">
                 <div>
                   <p class="color-educaixa-secundary">
-                    {{convertTime startDatetime}} - {{convertTime endDatetime}} h
+                    {{convertTime startDatetime}} - {{convertTime
+                      endDatetime
+                    }} h
                   </p>
                   <p class="color-gray session-places">
                     {{maxCapacity}} places disponibles
@@ -363,11 +494,15 @@ const template =
           {{#if empty}}
             <div
               class="calendar__item large calendar__border--light-gray"
-              style="position: absolute; margin-top: {{convertOffset startDatetime}}; height: {{convertHeight startTime endDatetime}};"
+              style="position: absolute; margin-top: {{
+                convertOffset startDatetime
+              }}; height: {{convertHeight startTime endDatetime}};"
             >
               <div>
                 <p class="color-grayLight">
-                  {{convertTime startDatetime}} - {{convertTime endDatetime}} h
+                  {{convertTime startDatetime}} - {{convertTime
+                    endDatetime
+                  }} h
                 </p>
                 <p class="mb-3 color-gray">
                   <span class="item-activity__ico--alert"></span>
@@ -382,11 +517,15 @@ const template =
           {{else}}
             <div
               class="calendar__item large calendar__border--blue"
-              style="position: absolute; margin-top: {{convertOffset startDatetime}}; height: {{convertHeight startDatetime endDatetime}};"
+              style="position: absolute; margin-top: {{
+                convertOffset startDatetime
+              }}; height: {{convertHeight startDatetime endDatetime}};"
             >
               <div>
                 <p class="color-educaixa-secundary session-time">
-                  {{convertTime startDatetime}} - {{convertTime endDatetime}} h
+                  {{convertTime startDatetime}} - {{convertTime
+                    endDatetime
+                  }} h
                 </p>
                 <p class="color-gray session-places">
                   {{availability}} places disponibles
@@ -414,6 +553,8 @@ const template =
 `;
 const CALENDAR_HEIGHT = 35.4375;
 const TIME_SLOTS = 9;
+var currentDay = 0;
+var currentTime = "2021-03-03T12:00:00";
 
 // HANDLEBAR PIPES
 Handlebars.registerHelper("convertTime", function (time) {
@@ -421,6 +562,12 @@ Handlebars.registerHelper("convertTime", function (time) {
   const currentHours = ("0" + date.getHours()).substr(-2);
   const currentMinutes = ("0" + date.getMinutes()).substr(-2);
   return `${currentHours}:${currentMinutes}`;
+});
+
+Handlebars.registerHelper("convertDaily", function (time) {
+  const date = new Date(time);
+  var options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleDateString("es-ES", options);
 });
 
 Handlebars.registerHelper("convertOffset", function (start) {
@@ -440,13 +587,25 @@ Handlebars.registerHelper("convertHeight", function (start, end) {
 });
 
 function renderElements(data) {
+
+  //Render timetable using Handlebars
   const templateFromHtml = $("#handlebars-daily-calendar").html();
   const templateScript = Handlebars.compile(template);
   const html = templateScript(data);
   $("#daily-calendar").empty();
   $("#daily-calendar").append(html);
+  
+  // Set height scheduling grid
   document.getElementById("calendar-events").style.height =
     CALENDAR_HEIGHT + "rem";
+
+  // Create events for the popups discover and more info
+  $(".calendar__modal-link").on("click", function () {
+    $(this).toggleClass("open");
+  });
+  $(".calendar__modal-close").on("click", function () {
+    $(".calendar__modal-link").removeClass("open");
+  });
 }
 
 function toggleSessions(id) {
@@ -462,18 +621,32 @@ function toggleSessions(id) {
   button.classList.toggle("arrow-rotation");
 }
 
-function updateData() {
+function updateData(position) {
   const res = JSON.parse(JSON.stringify(data));
-  const randomDay = Math.floor(Math.random() * data.length);
-  renderElements(res[randomDay]);
+  renderElements(res[position]);
 }
 
-updateData();
+function nextDay(){
+  var day = new Date(currentTime);
+  var nextDay = new Date(currentTime);
+  nextDay.setDate(day.getDate() + 1);
+  console.log(nextDay); // May 01 2000  
 
-$(".calendar__modal-link").on("click", function () {
-  $(this).toggleClass("open");
-});
 
-$(".calendar__modal-close").on("click", function () {
-  $(".calendar__modal-link").removeClass("open");
-});
+  if(currentDay >= data.length) currentDay = 0;
+  else currentDay++;
+  updateData(currentDay);
+}
+
+function previousDay(){
+  if(currentDay <= 0) currentDay = data.length-1;
+  else currentDay--;
+  updateData(currentDay);
+}
+
+function randomDay(){
+  const randomDay = Math.floor(Math.random() * data.length);
+  updateData(randomDay);
+}
+
+updateData(currentDay);

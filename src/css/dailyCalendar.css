@@ -93,32 +93,69 @@
 .calendar__item div p {
   margin: 0.45rem 0;
 }
-.calendar__item .calendar__info div .discount{
-  color: #4176DB;
+.calendar__item .calendar__info div .discount {
+  color: #4176db;
 }
 
 .more-info {
-  color: #000000!important;
+  color: #000000 !important;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
   line-height: 18px;
 }
 
-.session-time{
-  color: #4176DB;
+.session-time {
+  color: #4176db;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
   line-height: 18px;
 }
 
-.session-places{
-  color: #4A4A4A;
+.session-places {
+  color: #4a4a4a;
   font-size: 14px;
   font-weight: 300;
   letter-spacing: 0;
   line-height: 18px;
+}
+
+.time-day-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 13rem;
+  max-width: 1131px;
+  margin: 1.5rem auto;
+}
+.time-day-container div button {
+  background-color: #d4d4d4;
+  border-color: transparent;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+.time-day-container .time-day-title {
+  color: #4a4a4a;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 23px;
+  text-align: center;
+}
+.time-day-container .time-day-subtitle {
+  color: #4a4a4a;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 23px;
+  text-align: center;
 }
 
 @media screen and (max-width: 600px) {

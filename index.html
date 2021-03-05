@@ -28,57 +28,35 @@
   </head>
 
   <body>
-
-    <!-- <div class="fc-header-toolbar fc-toolbar fc-toolbar-ltr">
-      <div class="fc-toolbar-chunk">
-        <div class="fc-button-group">
-          <button
-            class="fc-timeGridDay-button fc-button fc-button-primary fc-button-active"
-            type="button"
-          >
-            day</button
-          ><button
-            class="fc-dayGridWeek-button fc-button fc-button-primary"
-            type="button"
-          >
-            week</button
-          ><button
-            class="fc-listWeek-button fc-button fc-button-primary"
-            type="button"
-          >
-            list</button
-          ><button
-            class="fc-listDay-button fc-button fc-button-primary"
-            type="button"
-          >
-            list
-          </button>
-        </div>
-        <button
-          class="fc-prev-button fc-button fc-button-primary"
-          type="button"
-          aria-label="prev"
-        >
-          <span class="fc-icon fc-icon-chevron-left"></span>
-        </button>
-      </div>
-      <div class="fc-toolbar-chunk">
-        <h2 class="fc-toolbar-title">5 de enero de 2021</h2>
-      </div>
-      <div class="fc-toolbar-chunk">
-        <button
-          class="fc-next-button fc-button fc-button-primary"
-          type="button"
-          aria-label="next"
-        >
-          <span class="fc-icon fc-icon-chevron-right"></span>
-        </button>
-      </div>
-    </div> -->
-
     <div id="daily-calendar"></div>
 
-    <script id="handlebars-daily-calendar" type="text/x-handlebars-template">
+    <script id="handlebars-daily-calendar" type="text/x-handlebars-template">   
+      <div class="time-day-container">
+        <div class="fc-toolbar-chunk">
+          <button
+            class="fc-prev-button fc-button fc-button-primary"
+            type="button"
+            aria-label="prev"
+            onclick="previousDay()"  
+          >
+            <span class="fc-icon fc-icon-chevron-left"></span>
+          </button>
+        </div>
+        <div class="fc-toolbar-chunk">
+          <h2 class="time-day-title">{{convertDaily test}}</h2>
+          <h4 class="time-day-subtitle">{{center}}</h4>
+        </div>
+        <div class="fc-toolbar-chunk">
+          <button
+            class="fc-next-button fc-button fc-button-primary"
+            type="button"
+            aria-label="next"
+            onclick="nextDay()"
+          >
+            <span class="fc-icon fc-icon-chevron-right"></span>
+          </button>
+        </div>
+      </div>
       <div class="daily-calendar-container">
         <div class="empty"></div>
         <div class="time">
@@ -114,14 +92,18 @@
           </p>
         </div>
         <div class="activities">
+          {{#unless activities}}
+          <h3 class="warning">WARNING: This entry does not have activities!</h3>
+          {{/unless}}
+
           {{#each activities}}
             <div class="activity" style="width: 100%; margin: 0 1rem;">
               <!-- ACTIVITY CONTAINER -->
               <div class="calendar__item p-0">
                 {{#if matched}}
-                <div class="calendar__leyend blue"></div>
+                  <div class="calendar__leyend blue"></div>
                 {{else}}
-                <div class="calendar__leyend black"></div>
+                  <div class="calendar__leyend black"></div>
                 {{/if}}
                 <div class="calendar__info">
                   <div>
@@ -259,7 +241,9 @@
                       >
                         <div>
                           <p class="color-grayLight">
-                            {{convertTime startDatetime}} - {{convertTime endDatetime}} h
+                            {{convertTime startDatetime}} - {{convertTime
+                              endDatetime
+                            }} h
                           </p>
                           <p class="mb-3 color-gray">
                             <span class="item-activity__ico--alert"></span>
@@ -275,7 +259,9 @@
                       <div class="calendar__item large calendar__border--blue">
                         <div>
                           <p class="color-educaixa-secundary">
-                            {{convertTime startDatetime}} - {{convertTime endDatetime}} h
+                            {{convertTime startDatetime}} - {{convertTime
+                              endDatetime
+                            }} h
                           </p>
                           <p class="color-gray session-places">
                             {{maxCapacity}} places disponibles
@@ -308,11 +294,15 @@
                   {{#if empty}}
                     <div
                       class="calendar__item large calendar__border--light-gray"
-                      style="position: absolute; margin-top: {{convertOffset startDatetime}}; height: {{convertHeight startTime endDatetime}};"
+                      style="position: absolute; margin-top: {{
+                        convertOffset startDatetime
+                      }}; height: {{convertHeight startTime endDatetime}};"
                     >
                       <div>
                         <p class="color-grayLight">
-                          {{convertTime startDatetime}} - {{convertTime endDatetime}} h
+                          {{convertTime startDatetime}} - {{convertTime
+                            endDatetime
+                          }} h
                         </p>
                         <p class="mb-3 color-gray">
                           <span class="item-activity__ico--alert"></span>
@@ -327,11 +317,15 @@
                   {{else}}
                     <div
                       class="calendar__item large calendar__border--blue"
-                      style="position: absolute; margin-top: {{convertOffset startDatetime}}; height: {{convertHeight startDatetime endDatetime}};"
+                      style="position: absolute; margin-top: {{
+                        convertOffset startDatetime
+                      }}; height: {{convertHeight startDatetime endDatetime}};"
                     >
                       <div>
                         <p class="color-educaixa-secundary session-time">
-                          {{convertTime startDatetime}} - {{convertTime endDatetime}} h
+                          {{convertTime startDatetime}} - {{convertTime
+                            endDatetime
+                          }} h
                         </p>
                         <p class="color-gray session-places">
                           {{availability}} places disponibles
