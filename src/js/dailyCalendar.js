@@ -237,21 +237,27 @@ const template =
     class="fc-prev-button fc-button fc-button-primary"
     type="button"
     aria-label="prev"
-    onclick="previousDay()"  
+    onclick="changeDay(-1)"
   >
     <span class="fc-icon fc-icon-chevron-left"></span>
   </button>
 </div>
 <div class="fc-toolbar-chunk">
-  <h2 class="time-day-title">{{convertDaily test}}</h2>
-  <h4 class="time-day-subtitle">{{center}}</h4>
+  <h2 class="time-day-title">
+    {{convertDaily test}}
+  </h2>
+  {{#if center}}
+    <h4 class="time-day-subtitle">
+      {{center}}
+    </h4>
+  {{/if}}
 </div>
 <div class="fc-toolbar-chunk">
   <button
     class="fc-next-button fc-button fc-button-primary"
     type="button"
     aria-label="next"
-    onclick="nextDay()"
+    onclick="changeDay(1)"
   >
     <span class="fc-icon fc-icon-chevron-right"></span>
   </button>
@@ -293,9 +299,13 @@ const template =
 </div>
 <div class="activities">
   {{#unless activities}}
-  <h3 class="warning">WARNING: This entry does not have activities!</h3>
+    <h5
+      class="warning"
+      style="margin: auto; color: #4176db; font-style: italic;"
+    >
+      No hi ha activitats per aquest dia.
+    </h5>
   {{/unless}}
-
   {{#each activities}}
     <div class="activity" style="width: 100%; margin: 0 1rem;">
       <!-- ACTIVITY CONTAINER -->
@@ -554,7 +564,7 @@ const template =
 const CALENDAR_HEIGHT = 35.4375;
 const TIME_SLOTS = 9;
 var currentDay = 0;
-var currentTime = "2021-03-03T12:00:00";
+var currentTime = "2021-03-01T12:00:00";
 
 // HANDLEBAR PIPES
 Handlebars.registerHelper("convertTime", function (time) {
@@ -587,8 +597,7 @@ Handlebars.registerHelper("convertHeight", function (start, end) {
 });
 
 function renderElements(data) {
-
-  //Render timetable using Handlebars
+  // Render schedule
   const templateFromHtml = $("#handlebars-daily-calendar").html();
   const templateScript = Handlebars.compile(template);
   const html = templateScript(data);
@@ -622,26 +631,44 @@ function toggleSessions(id) {
 }
 
 function updateData(position) {
-  const res = JSON.parse(JSON.stringify(data));
-  renderElements(res[position]);
+  if(position != typeof(Number)){
+    const res = JSON.parse(JSON.stringify(data));
+    renderElements(res[position]);
+  }else{
+    renderElements({});
+  }
 }
 
-function nextDay(){
+function datesAreOnSameDay(first, second){
+  return (
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate());
+}
+
+function isDayInResponse(day){
+  var resultIndex = null;
+  const d1 = new Date(day);
+  data.forEach((element, i) => {
+    var d2 = new Date(element.test);
+    if(datesAreOnSameDay(d1, d2)){
+      resultIndex = i;
+    }
+  });
+  return resultIndex;
+}
+
+function changeDay(increment){
   var day = new Date(currentTime);
   var nextDay = new Date(currentTime);
-  nextDay.setDate(day.getDate() + 1);
-  console.log(nextDay); // May 01 2000  
-
-
-  if(currentDay >= data.length) currentDay = 0;
-  else currentDay++;
-  updateData(currentDay);
-}
-
-function previousDay(){
-  if(currentDay <= 0) currentDay = data.length-1;
-  else currentDay--;
-  updateData(currentDay);
+  nextDay.setDate(day.getDate() + increment);
+  currentTime = nextDay.toISOString();
+  var reponseIndex = isDayInResponse(nextDay.toISOString());
+  if(reponseIndex != null){
+    updateData(reponseIndex);
+  }else{
+    renderElements({ test: nextDay.toISOString() });
+  }
 }
 
 function randomDay(){
@@ -649,4 +676,4 @@ function randomDay(){
   updateData(randomDay);
 }
 
-updateData(currentDay);
+renderElements({ test: currentTime });

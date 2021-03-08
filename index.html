@@ -30,28 +30,34 @@
   <body>
     <div id="daily-calendar"></div>
 
-    <script id="handlebars-daily-calendar" type="text/x-handlebars-template">   
+    <script id="handlebars-daily-calendar" type="text/x-handlebars-template">
       <div class="time-day-container">
         <div class="fc-toolbar-chunk">
           <button
             class="fc-prev-button fc-button fc-button-primary"
             type="button"
             aria-label="prev"
-            onclick="previousDay()"  
+            onclick="changeDay(-1)"
           >
             <span class="fc-icon fc-icon-chevron-left"></span>
           </button>
         </div>
         <div class="fc-toolbar-chunk">
-          <h2 class="time-day-title">{{convertDaily test}}</h2>
-          <h4 class="time-day-subtitle">{{center}}</h4>
+          <h2 class="time-day-title">
+            {{convertDaily test}}
+          </h2>
+          {{#if center}}
+            <h4 class="time-day-subtitle">
+              {{center}}
+            </h4>
+          {{/if}}
         </div>
         <div class="fc-toolbar-chunk">
           <button
             class="fc-next-button fc-button fc-button-primary"
             type="button"
             aria-label="next"
-            onclick="nextDay()"
+            onclick="changeDay(1)"
           >
             <span class="fc-icon fc-icon-chevron-right"></span>
           </button>
@@ -93,9 +99,13 @@
         </div>
         <div class="activities">
           {{#unless activities}}
-          <h3 class="warning">WARNING: This entry does not have activities!</h3>
+            <h5
+              class="warning"
+              style="margin: auto; color: #4176db; font-style: italic;"
+            >
+              No hi ha activitats per aquest dia.
+            </h5>
           {{/unless}}
-
           {{#each activities}}
             <div class="activity" style="width: 100%; margin: 0 1rem;">
               <!-- ACTIVITY CONTAINER -->

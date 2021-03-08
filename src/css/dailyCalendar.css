@@ -177,4 +177,7 @@
   .sessions-mobile {
     display: block;
   }
+  .time-day-container {
+    padding: 0rem;
+  }
 }
