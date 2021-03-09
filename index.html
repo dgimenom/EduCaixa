@@ -44,7 +44,7 @@
         </div>
         <div class="fc-toolbar-chunk">
           <h2 class="time-day-title">
-            {{convertDaily test}}
+            {{convertDaily date}}
           </h2>
           {{#if center}}
             <h4 class="time-day-subtitle">
@@ -107,7 +107,10 @@
             </h5>
           {{/unless}}
           {{#each activities}}
-            <div class="activity" style="width: 100%; margin: 0 1rem;">
+            <div
+              class="activity"
+              style="width: 100%; margin: 0 1rem; min-width: 12rem;"
+            >
               <!-- ACTIVITY CONTAINER -->
               <div class="calendar__item p-0">
                 {{#if matched}}
@@ -123,36 +126,39 @@
                       </strong>
                     </p>
                     <p class="maximum">
-                      {{product.capacity}}
+                      {{{product.capacity}}}
                     </p>
                     <p class="price">
-                      {{product.price}}
+                      {{{product.price}}}
                     </p>
-                    <a class="discount mb-3 d-block calendar__modal-link">
-                      <span class="item-activity__ico--porcent"></span>
-                      Descompte
-                    </a>
-                    <div
-                      class="card-course__element typografy__four calendar__modal"
-                      id=""
-                    >
-                      <a class="calendar__modal-close">
-                        x
-                      </a>
-                      <div>
+                    {{#if promotions}}
+                      <a class="discount mb-3 d-block calendar__modal-link">
                         <span class="item-activity__ico--porcent"></span>
-                        <span>
-                          Pack descompte
-                        </span>
+                        Descompte
+                      </a>
+                      <div
+                        class="card-course__element typografy__four calendar__modal"
+                        id=""
+                      >
+                        <a class="calendar__modal-close">
+                          x
+                        </a>
+                        <div>
+                          <span class="item-activity__ico--porcent"></span>
+                          <span>
+                            Pack descompte
+                          </span>
+                        </div>
+                        {{#each promotions}}
+                          <p
+                            id="{{id}}"
+                            class="circular-Std-Book color-grayMedium circular-Std-Bold"
+                          >
+                            {{name}}
+                          </p>
+                        {{/each}}
                       </div>
-                      {{#each promotions}}
-                        <p
-                          class="circular-Std-Book color-grayMedium circular-Std-Bold"
-                        >
-                          {{name}}
-                        </p>
-                      {{/each}}
-                    </div>
+                    {{/if}}
                   </div>
                   <a class="more-info link__blue calendar__modal-link">
                     Més informació
@@ -162,15 +168,13 @@
                       x
                     </a>
                     <div class="col-lg-12 p-0">
-                      <div class="card-course__img">
-                        <a>
-                          <img
-                            alt=""
-                            class="image"
-                            src="https://educaixa.org/documents/40415705/53887618/pruebasedu2.jpg/bc3d48fd-d310-4d17-99b5-4a6aff3a5d67?t=1605525095141"
-                          />
-                        </a>
-                      </div>
+                      {{#if imageUrl}}
+                        <div class="card-course__img">
+                          <a href="{{friendlyUrl}}">
+                            <img alt="" class="image" src="{{imageUrl}}" />
+                          </a>
+                        </div>
+                      {{/if}}
                       <div>
                         <div
                           class="d-flex mb-1 typografy__five justify-content-between"
@@ -181,52 +185,22 @@
                               Visita guiada
                             </span>
                           </span>
-                          <label class="card-course__tag">
-                            afegida
-                          </label>
                         </div>
                         <a
                           class="link__black link--no-underline"
-                          href="https://educaixa.org/es/-/aprendizaje-colaborativo"
+                          href="{{friendlyUrl}}"
                         >
                           <h3 class="card-course__title">
-                            Poètiques de l'emoció
+                            {{title}}
                           </h3>
                         </a>
                         <p class="card-course__summary">
-                          Nulla at ipsum vitae neque consectetur dictum. Vivamus vitae dolor augue. Cras ornare tempor scelerisque. Nunc libero lorem, ornare ac venenatis eget, faucibus eget sem. Pellentesque posuere massa ut.
+                          {{description}}
                         </p>
-                      </div>
-                      <div class="card-course__link-container">
-                        <a
-                          onclick=""
-                          class="link__black link--underline"
-                          href="https://educaixa.org/es/resultados?q=metodologías de innovación"
-                        >
-                          Voz,
-                        </a>
-                        <a
-                          onclick=""
-                          class="link__black"
-                          href="https://educaixa.org/es/resultados?q=aprendizaje cooperativo"
-                        >
-                          Cuerpo
-                        </a>
-                        ,
-                        <a
-                          onclick=""
-                          class="link__black link--underline"
-                          href="https://educaixa.org/es/resultados?q=EduCaixaTalks"
-                        >
-                          Teatro
-                        </a>
                       </div>
                       <div class="card-course__description">
                         <p class="circular-Std-Bold">
-                          CaixaForum Barcelona
-                        </p>
-                        <p class="circular-Std-Bold">
-                          Disponible a partir 23.01.2019
+                          {{product.centerName}}
                         </p>
                       </div>
                     </div>
@@ -245,14 +219,14 @@
               <div class="sessions-mobile">
                 <div id="sessions-{{activityPlanId}}" style="display: none">
                   {{#each sessions}}
-                    {{#if empty}}
+                    {{#if startDatetimeString}}
                       <div
                         class="calendar__item large calendar__border--light-gray"
                       >
                         <div>
                           <p class="color-grayLight">
-                            {{convertTime startDatetime}} - {{convertTime
-                              endDatetime
+                            {{convertTime startDatetimeString}} - {{convertTime
+                              endDatetimeString
                             }} h
                           </p>
                           <p class="mb-3 color-gray">
@@ -261,16 +235,16 @@
                           </p>
                           <a href="#" class="link__black">
                             <span class="item-activity__ico--plus"></span>
-                            Agegeix a la lista d´espera
+                            Afegeix a la lista d´espera
                           </a>
                         </div>
                       </div>
                     {{else}}
-                      <div class="calendar__item large calendar__border--blue">
+                      <div class="calendar__item large calendar__border--gray">
                         <div>
                           <p class="color-educaixa-secundary">
-                            {{convertTime startDatetime}} - {{convertTime
-                              endDatetime
+                            {{convertTime startDatetimeString}} - {{convertTime
+                              endDatetimeString
                             }} h
                           </p>
                           <p class="color-gray session-places">
@@ -278,13 +252,10 @@
                           </p>
                           <select
                             name="form-class"
-                            class="form-select form-control error-field"
+                            class="form-select form-control"
                           >
-                            <option value="option-1">
-                              Grup 1. 1r de Batxillerat A
-                            </option>
-                            <option value="option-2">
-                              Grup 2. 1r de Batxillerat A
+                            <option value="">
+                              Tria grup
                             </option>
                           </select>
                         </div>
@@ -298,43 +269,50 @@
         </div>
         <div class="events" id="calendar-events">
           {{#each activities}}
-            <div class="activity" style="width: 100%; margin: 0 1rem;">
+            <div
+              class="activity"
+              style="width: 100%; margin: 0 1rem; min-width: 12rem;"
+            >
               <div id="sessions-{{activityPlanId}}" style="position: relative;">
                 {{#each sessions}}
-                  {{#if empty}}
+                  {{#if (lte availability 0)}}
                     <div
                       class="calendar__item large calendar__border--light-gray"
                       style="position: absolute; margin-top: {{
-                        convertOffset startDatetime
-                      }}; height: {{convertHeight startTime endDatetime}};"
+                        convertOffset startDatetimeString
+                      }}; height: {{
+                        convertHeight startDatetimeString endDatetimeString
+                      }};"
                     >
                       <div>
                         <p class="color-grayLight">
-                          {{convertTime startDatetime}} - {{convertTime
-                            endDatetime
+                          {{convertTime startDatetimeString}} - {{convertTime
+                            endDatetimeString
                           }} h
                         </p>
                         <p class="mb-3 color-gray">
                           <span class="item-activity__ico--alert"></span>
-                          {{availability}}
+                          Sense places disponibles
                         </p>
                         <a href="#" class="link__black">
                           <span class="item-activity__ico--plus"></span>
-                          Agegeix a la lista d´espera
+                          Afegeix a la lista d´espera
                         </a>
                       </div>
                     </div>
                   {{else}}
                     <div
-                      class="calendar__item large calendar__border--blue"
+                      class="calendar__item large calendar__border--gray"
                       style="position: absolute; margin-top: {{
-                        convertOffset startDatetime
-                      }}; height: {{convertHeight startDatetime endDatetime}};"
+                        convertOffset startDatetimeString
+                      }}; height: {{
+                        convertHeight startDatetimeString endDatetimeString
+                      }};"
                     >
                       <div>
                         <p class="color-educaixa-secundary session-time">
-                          {{convertTime startDatetime}} - {{convertTime
-                            endDatetime
+                          {{convertTime startDatetimeString}} - {{convertTime
+                            endDatetimeString
                           }} h
                         </p>
                         <p class="color-gray session-places">
@@ -342,13 +320,10 @@
                         </p>
                         <select
                           name="form-class"
-                          class="form-select form-control error-field"
+                          class="form-select form-control"
                         >
-                          <option value="volvo">
-                            Grup 1. 1r de Batxillerat A
-                          </option>
-                          <option value="saab">
-                            Grup 2. 1r de Batxillerat A
+                          <option value="">
+                            Tria grup
                           </option>
                         </select>
                       </div>

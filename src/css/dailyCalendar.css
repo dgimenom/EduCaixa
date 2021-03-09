@@ -63,6 +63,7 @@
   grid-area: activity;
   display: flex;
   flex-direction: row;
+  margin-bottom: 2rem;
 }
 
 .daily-calendar-container .events {
@@ -83,16 +84,24 @@
   line-height: 20px;
 }
 
+.calendar__item {
+  height: 100%;
+}
+
 .calendar__item .calendar__info {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
+
 .calendar__item .calendar__info div p {
   margin: 0;
 }
+
 .calendar__item div p {
-  margin: 0.45rem 0;
+  margin: 0.5rem 0;
 }
+
 .calendar__item .calendar__info div .discount {
   color: #4176db;
 }
@@ -158,9 +167,26 @@
   text-align: center;
 }
 
+.unselected {
+  color: #9b9b9b;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+
+.link__black {
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+
 @media screen and (max-width: 600px) {
   .daily-calendar-container .activities {
     flex-direction: column !important;
+    margin-bottom: 2rem;
   }
   .daily-calendar-container .events {
     display: none;
