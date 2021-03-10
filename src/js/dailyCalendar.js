@@ -523,7 +523,7 @@ Handlebars.registerHelper("convertHeight", function (start, end) {
 function renderElements(data) {
   // Rendering handlebars template
   const templateFromHtml = $("#handlebars-daily-calendar").html();
-  const templateScript = Handlebars.compile(templateFromHtml);
+  const templateScript = Handlebars.compile(TEMPLATE_FROM_JS);
   const renderedTemplate = templateScript(data);
   $("#daily-calendar").empty();
   $("#daily-calendar").append(renderedTemplate);
