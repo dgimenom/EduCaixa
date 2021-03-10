@@ -310,7 +310,7 @@ const TEMPLATE_FROM_JS = `
 `;
 
 var data = {
-  date: "15/01/2021",
+  date: "14/01/2021",
   week: false,
   center: "CaixaForum Barcelona",
   groups: [
@@ -372,10 +372,37 @@ var data = {
       promotions: null,
       sessions: [
         {
+          availability: 50,
+          maxCapacity: 150,
+          startDatetimeString: "2021-01-13T14:00:00Z",
+          endDatetimeString: "2021-01-13T17:00:00Z",
+        },
+      ],
+      dateSessionString: "2021-01-13",
+    },
+    {
+      fblcActivityId: "AE-1813",
+      eventId: 6013,
+      title: "Escucha nuestra musica 2",
+      description: null,
+      imageUrl: null,
+      activityPlanId: 0,
+      friendlyUrl: null,
+      product: {
+        centerName: "",
+        date: null,
+        capacity: "150",
+        price: "20.0",
+        locationId: null,
+      },
+      matched: true,
+      promotions: null,
+      sessions: [
+        {
           availability: -50,
           maxCapacity: 150,
           startDatetimeString: "2021-01-13T09:00:00Z",
-          endDatetimeString: "2021-01-13T17:00:00Z",
+          endDatetimeString: "2021-01-13T12:00:00Z",
         },
       ],
       dateSessionString: "2021-01-13",
@@ -445,11 +472,9 @@ var data = {
     },
   ],
 };
-
-var currentDateWorking = "2021-01-13";
 var currentDate = `${data.date.split('/')[2]}-${data.date.split('/')[1]}-${data.date.split('/')[0]}`;
 
-// HANDLEBAR PIPES
+// Handlebars template pipes
 Handlebars.registerHelper({
   eq: (v1, v2) => v1 === v2,
   ne: (v1, v2) => v1 !== v2,
@@ -498,7 +523,7 @@ Handlebars.registerHelper("convertHeight", function (start, end) {
 function renderElements(data) {
   // Rendering handlebars template
   const templateFromHtml = $("#handlebars-daily-calendar").html();
-  const templateScript = Handlebars.compile(TEMPLATE_FROM_JS);
+  const templateScript = Handlebars.compile(templateFromHtml);
   const renderedTemplate = templateScript(data);
   $("#daily-calendar").empty();
   $("#daily-calendar").append(renderedTemplate);
@@ -546,14 +571,31 @@ function datesAreOnSameDay(first, second) {
   );
 }
 
+
+function pullNewData(){
+  console.log('UPDATE DATA');
+}
+
+var weekendCounter = 0;
 function changeDay(increment) {
-  const day = new Date(currentDate);
-  const dayName = day.toLocaleDateString("es-ES", { weekday: 'long' });
-  const weekendJumper = (dayName === "viernes" && increment > 0) || (dayName === "lunes" && increment < 0) ? 3 : 1;
-  const n = day.getTime() + ( weekendJumper * increment * 86400000);
+  const currentDay = new Date(currentDate);
+  const dayName = currentDay.toLocaleDateString("es-ES", { weekday: 'long' });
+  const weekendMultiplier = (dayName === "viernes" && increment > 0) || (dayName === "lunes" && increment < 0) ? 3 : 1;
+  const n = currentDay.getTime() + ( weekendMultiplier * increment * 86400000);
   const nextDay = new Date(n);
-  currentDate = `${nextDay.getFullYear()}-${nextDay.getMonth()+1}-${nextDay.getDate()}`;  
-  renderElements(selectActivities(currentDate));
+  currentDate = `${nextDay.getFullYear()}-${nextDay.getMonth()+1}-${nextDay.getDate()}`; 
+  
+  //Check if we have to update data
+  if(weekendMultiplier === 3) weekendCounter++; //
+  if((increment < 0 && weekendMultiplier === 3) || (increment > 0 && weekendMultiplier === 3 && weekendCounter >= 2)){
+    //Pull new data from database
+    pullNewData();
+    weekendCounter = 0;
+  }else{
+    //Update info from local
+    renderElements(selectActivities(currentDate));
+  } 
+  
 }
 
 function selectActivities(date) {
