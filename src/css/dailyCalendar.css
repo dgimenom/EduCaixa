@@ -12,7 +12,7 @@
   transform: rotate(180deg);
 }
 
-.form-select {
+.form-select--bold {
   font-weight: 900;
 }
 
@@ -63,7 +63,6 @@
   grid-area: activity;
   display: flex;
   flex-direction: row;
-  margin-bottom: 2rem;
 }
 
 .daily-calendar-container .events {
@@ -75,17 +74,28 @@
   cursor: pointer;
 }
 
+.activity-container {
+  width: 100%;
+  padding: 0 1rem;
+  min-width: 12rem;
+}
+
+.activity-container:not(:first-child) {
+  border-left: 1px solid #dfdfdf;
+}
+
 .calendar__modal-close {
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-  line-height: 20px;
+  color: white !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  line-height: 20px !important;
 }
 
 .calendar__item {
   height: 100%;
+  padding-bottom: 1rem !important;
 }
 
 .calendar__item .calendar__info {
@@ -186,7 +196,6 @@
 @media screen and (max-width: 600px) {
   .daily-calendar-container .activities {
     flex-direction: column !important;
-    margin-bottom: 2rem;
   }
   .daily-calendar-container .events {
     display: none;
