@@ -193,6 +193,12 @@
   line-height: 18px;
 }
 
+.no-activities-warning {
+  margin: auto;
+  color: #4176db;
+  font-style: italic;
+}
+
 @media screen and (max-width: 600px) {
   .daily-calendar-container .activities {
     flex-direction: column !important;
