@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EduCaixa Maqueta Custom</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -201,7 +201,7 @@
                 </div>
               </div>
               <!-- HIDE/SHOW LINK -->
-              <a id="toggle-{{activityPlanId}}" class="toggle-link link__blue link--underline down-arrow" onclick="toggleSessions('{{activityPlanId}}')">
+              <a id="toggle-{{activityPlanId}}" style="overflow: hidden;" class="toggle-link link__blue link--underline down-arrow" onclick="toggleSessions('{{activityPlanId}}')">
               <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.SHOW.SESSIONS")%>
               </a>
               <!-- SESSIONS CONTAINER -->
@@ -210,7 +210,7 @@
                   {{#each sessions}}
                   {{#if (lte availability 0)}}
                       <div id="session-mobile-{{id}}" class="calendar__item large calendar__border--light-gray">
-                        <div>
+                        <div style="width: 100%;">
                           <p class="color-grayLight">
                             {{convertTime startDatetimeString}} - {{convertTime endDatetimeString}} h
                           </p>
@@ -226,14 +226,14 @@
                       </div>
                     {{else}}
                       <div id="session-mobile-{{id}}" class="calendar__item large calendar__border--gray">
-                        <div>
+                        <div style="width: 100%;">
                           <p class="color-educaixa-secundary">
                             {{convertTime startDatetimeString}} - {{convertTime endDatetimeString}} h
                           </p>
                           <p class="color-gray session-places">
                             {{maxCapacity}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
                           </p>
-                          <select data-session-id="{{id}}" name="form-class" class="test1 form-select form-control class-selector session-form-mobile">
+                          <select data-session-id="{{id}}" name="form-class" class="form-select form-control class-selector session-form-mobile">
                             <option value=" ">
                             <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.CHOOSE.GROUP")%>
                             </option>
@@ -293,7 +293,7 @@
                         <p class="color-gray session-places">
                           {{availability}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
                         </p>
-                        <select data-session-id="{{id}}" data-session-object='{{{json this}}}' name="form-class" class="form-select form-control class-selector session-form-desktop">
+                        <select data-session-id="{{id}}" data-activity-object='{"activityPlanId":"{{activityPlanId}}", "articleId":"{{articleId}}", "fblcActivityId":"{{fblcActivityId}}", "eventId":"{{eventId}}" }' data-session-object='{{{json this}}}' name="form-class" class="form-select form-control class-selector session-form-desktop">
                           <option value=" ">
                           <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.CHOOSE.GROUP")%>
                           </option>
@@ -311,20 +311,20 @@
 
     <script id="handlebars-resume-calendar" type="text/x-handlebars-template">
       {{#if this}}
-        {{#each this}}
-          <div class="calendar__summary">
-            <p class="mb-2">
-              Has
-              <strong>
-                seleccionat
-              </strong>
-              les següents sessions:
-            </p>
-            <div class="calendar__summary-item">
+      <div class="calendar__summary">
+        <p class="mb-2">
+          Has
+          <strong>
+            seleccionat
+          </strong>
+          les següents sessions:
+        </p>
+        <div class="calendar__summary-item">
+              {{#each this}}
               <div class="col-lg-6 calendar__summary-class">
                 <div class="d-flex align-items-center">
                   <div class="calendar__notification one me-2 mr-2">
-                    1
+                    {{inc @index}}
                   </div>
                   <strong>
                     {{schoolName}}
@@ -332,14 +332,14 @@
                 </div>
                 {{#each sessions}}
                   <p class="color-gray">
-                    <a href="#" class="color-educaixa-secundary">
+                    <a class="color-educaixa-secundary">
                       {{name}} |</a> {{overviewTime startTime }}
                   </p>
                 {{/each}}
               </div>
+              {{/each}}
             </div>
           </div>
-        {{/each}}
       {{else}}
         <div class="calendar__summary">
           <p class="mb-2">
