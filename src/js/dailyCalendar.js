@@ -963,7 +963,7 @@ Handlebars.registerHelper("inc", function (value) {
 function renderElements(dataInfo) {
   // Rendering handlebars template
   const templateFromHtml = $("#handlebars-daily-calendar").html();
-  const templateScript = Handlebars.compile(templateFromHtml);
+  const templateScript = Handlebars.compile(DAILY_TEMPLATE_FROM_JS);
   const renderedTemplate = templateScript(dataInfo);
   $("#daily-calendar").empty();
   $("#daily-calendar").append(renderedTemplate);
@@ -1295,7 +1295,8 @@ function loadFromLocalStorage() {
 
 function updateOverview() {
   const templateFromHtml = $("#handlebars-resume-calendar").html();
-  const templateScript = Handlebars.compile(RESUME_TEMPLATE_FROM_JS);
+  const templateScript = Handlebars.compile(templateFromHtml);
+  // const templateScript = Handlebars.compile(RESUME_TEMPLATE_FROM_JS);
   const renderedTemplate = templateScript(savedData);
   $("#resume-activities").empty();
   $("#resume-activities").append(renderedTemplate);
