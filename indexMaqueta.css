@@ -1,0 +1,45 @@
+.group__wrapper {
+}
+
+.group__wrapper .group__container {
+  background-color: lightgray;
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 1rem;
+}
+.group__wrapper .group__container .group__info {
+  list-style-type: none;
+  color: #52bae5;
+  padding: 0;
+}
+
+.group__wrapper .group__container .group__observations {
+  color: #b0b0b1;
+}
+
+.description__wrapper {
+  padding: 1.5rem 0;
+}
+
+.description__wrapper .description__title {
+  font-family: "Circular Std Bold";
+}
+.description__wrapper .description__subtitle {
+  font-family: "Circular Std Book";
+  margin: 1rem 0;
+}
+.description__wrapper .description__badge {
+  font-family: "Circular Std Book";
+  background: white;
+  border: 1px solid #9b9b9b;
+  color: #9b9b9b;
+  font-size: 1.15rem;
+  border-radius: 15px;
+  margin: 0.5rem 0.75rem 0.5rem 0rem;
+  padding: 0.5rem 2rem;
+  font-weight: 200;
+}
+
+.card-cesta__ico--gray {
+  fill: red;
+}

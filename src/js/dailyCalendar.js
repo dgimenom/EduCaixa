@@ -3,7 +3,321 @@ const START_TIME = 9; // can only be oclock time in order to get integer slot
 const END_TIME = 20; // can only be oclock time in order to get integer slot
 const TIME_SLOTS = END_TIME - START_TIME;
 const NUM_RANGE_WEEKS_RECEIVED = 2;
-const TEMPLATE_FROM_JS = ``;
+const DAILY_TEMPLATE_FROM_JS = `
+<div class="time-day-container">
+<div class="fc-toolbar-chunk">
+  <button
+    class="fc-prev-button fc-button fc-button-primary"
+    type="button"
+    aria-label="prev"
+    onclick="changeDay(-1)"
+  >
+    <span class="fc-icon fc-icon-chevron-left"></span>
+  </button>
+</div>
+<div class="fc-toolbar-chunk">
+  <h2 class="time-day-title">
+    {{convertDaily date}}
+  </h2>
+  {{#if center}}
+    <h4 class="time-day-subtitle">
+      {{center}}
+    </h4>
+  {{/if}}
+</div>
+<div class="fc-toolbar-chunk">
+  <button
+    class="fc-next-button fc-button fc-button-primary"
+    type="button"
+    aria-label="next"
+    onclick="changeDay(1)"
+  >
+    <span class="fc-icon fc-icon-chevron-right"></span>
+  </button>
+</div>
+</div>
+<div class="daily-calendar-container">
+<div class="empty"></div>
+<div class="time">
+  <p>
+    09:00h
+  </p>
+  <p>
+    10:00h
+  </p>
+  <p>
+    11:00h
+  </p>
+  <p>
+    12:00h
+  </p>
+  <p>
+    13:00h
+  </p>
+  <p>
+    14:00h
+  </p>
+  <p>
+    15:00h
+  </p>
+  <p>
+    16:00h
+  </p>
+  <p>
+    17:00h
+  </p>
+  <p>
+    18:00h
+  </p>
+  <p>
+  19:00h
+  </p>
+  <p>
+  20:00h
+  </p>
+</div>
+<div class="activities">
+  {{#unless activities}}
+    <h5 class="no-activities-warning">
+      <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.NO.ACTIVITIES")%>
+    </h5>
+  {{/unless}}
+  {{#each activities}}
+    <div class="activity-container">
+      <!-- ACTIVITY CONTAINER -->
+      <div class="calendar__item p-0">
+        {{#if matched}}
+          <div class="calendar__leyend blue"></div>
+        {{else}}
+          <div class="calendar__leyend black"></div>
+        {{/if}}
+        <div class="calendar__info">
+          <div>
+            <p class="title">
+              <strong>
+                {{{title}}}
+              </strong>
+            </p>
+            <p class="maximum">
+              {{{product.capacity}}}
+            </p>
+            <p class="price">
+              {{{product.price}}}
+            </p>
+            {{#if promotions}}
+              <a class="discount mb-3 d-block calendar__modal-link">
+                <span class="item-activity__ico--porcent"></span>
+                <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.PROMOTION")%>
+              </a>
+              <div class="card-course__element typografy__four calendar__modal" id="">
+                <a class="calendar__modal-close">
+                  x
+                </a>
+                <div>
+                  <span class="item-activity__ico--porcent"></span>
+                  <span>
+                  <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.PROMOTION.PACK")%>
+                  </span>
+                </div>
+                {{#each promotions}}
+                  <p id="{{id}}" class="circular-Std-Book color-grayMedium circular-Std-Bold">
+                    {{name}}
+                  </p>
+                {{/each}}
+              </div>
+            {{/if}}
+          </div>
+          <a class="more-info link__blue calendar__modal-link">
+          <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.MORE.INFO")%>
+          </a>
+          <div class="card-course__element calendar__modal" id="">
+            <a class="calendar__modal-close">
+              x
+            </a>
+            <div class="col-lg-12 p-0">
+              {{#if imageUrl}}
+                <div class="card-course__img">
+                  <a href="{{friendlyUrl}}">
+                    <img alt="" class="image" src="{{imageUrl}}" />
+                  </a>
+                </div>
+              {{/if}}
+              <div>
+                <div class="d-flex mb-1 typografy__five justify-content-between">
+                  <span class="color-educaixa-secundary session-time">
+                  <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.ACTIVITY")%>
+                    <span class="circular-Std-Bold">
+                    <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.GUIDED.VISIT")%>
+                    </span>
+                  </span>
+                </div>
+                <a class="link__black link--no-underline" href="{{friendlyUrl}}">
+                  <h3 class="card-course__title">
+                    {{{title}}}
+                  </h3>
+                </a>
+                <p class="card-course__summary">
+                  {{{description}}}
+                </p>
+              </div>
+              <div class="card-course__description">
+                <p class="circular-Std-Bold">
+                  {{{product.centerName}}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- HIDE/SHOW LINK -->
+      <a id="toggle-{{activityPlanId}}" style="overflow: hidden;" class="toggle-link link__blue link--underline down-arrow" onclick="toggleSessions('{{activityPlanId}}')">
+      <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.SHOW.SESSIONS")%>
+      </a>
+      <!-- SESSIONS CONTAINER -->
+      <div class="sessions-mobile">
+        <div id="mobile-sessions-{{activityPlanId}}" data-activity-plan="{{activityPlanId}}" style="display: none">
+          {{#each sessions}}
+          {{#if (lte availability 0)}}
+              <div id="session-mobile-{{id}}" class="calendar__item large calendar__border--light-gray">
+                <div style="width: 100%;">
+                  <p class="color-grayLight">
+                    {{convertTime startDatetimeString}} - {{convertTime endDatetimeString}} h
+                  </p>
+                  <p class="mb-3 color-gray">
+                    <span class="item-activity__ico--alert"></span>
+                    {{maxCapacity}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
+                  </p>
+                  <a data-session-id="{{id}}" class="add-waitlist link__black">
+                    <span class="item-activity__ico--plus"></span>
+                    <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.ADD.WAITLIST")%>
+                  </a>
+                </div>
+              </div>
+            {{else}}
+              <div id="session-mobile-{{id}}" class="calendar__item large calendar__border--gray">
+                <div style="width: 100%;">
+                  <p class="color-educaixa-secundary">
+                    {{convertTime startDatetimeString}} - {{convertTime endDatetimeString}} h
+                  </p>
+                  <p class="color-gray session-places">
+                    {{maxCapacity}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
+                  </p>
+                  <select data-session-id="{{id}}" name="form-class" class="form-select form-control class-selector session-form-mobile">
+                    <option value=" ">
+                    <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.CHOOSE.GROUP")%>
+                    </option>
+                  </select>
+                </div>
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
+<div class="events" id="calendar-events">
+  {{#each activities}}
+    <div class="activity-container">
+      <div data-activity-plan="{{activityPlanId}}" style="position: relative;">
+        {{#each sessions}}
+          {{#if (lte availability 0)}}
+            <div id="session-{{id}}" class="calendar__item large calendar__border--light-gray" style="position: absolute; margin-top: {{
+                convertOffset startDatetimeString
+              }}; height: {{
+                convertHeight startDatetimeString endDatetimeString
+              }};"
+            >
+              <div style="width: 100%;">
+                <p class="color-grayLight">
+                  {{convertTime startDatetimeString}} - {{convertTime endDatetimeString}} h
+                </p>
+                <p class="mb-3 color-gray session-text-wrap">
+                  <span class="item-activity__ico--alert"></span>
+                  Sense places disponibles
+                  <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.NO.AVAILABILITY")%>
+                </p>
+                <a data-session-id="{{id}}" href="#" class="add-waitlist link__black session-text-wrap">
+                  <span class="item-activity__ico--plus"></span>
+                  <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.ADD.WAITLIST")%>
+                </a>
+              </div>
+            </div>
+          {{else}}
+            <div
+              id="session-{{id}}"
+              class="calendar__item large calendar__border--gray"
+              style="position: absolute; margin-top: {{
+                convertOffset startDatetimeString
+              }}; height: {{
+                convertHeight startDatetimeString endDatetimeString
+              }};"
+            >
+              <div class="session-container">
+                <p class="color-educaixa-secundary session-time">
+                  {{convertTime startDatetimeString}} - {{convertTime
+                    endDatetimeString
+                  }} h
+                </p>
+                <p class="color-gray session-places">
+                  {{availability}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
+                </p>
+                <select data-session-id="{{id}}" data-activity-object='{"activityPlanId":"{{activityPlanId}}", "articleId":"{{articleId}}", "fblcActivityId":"{{fblcActivityId}}", "eventId":"{{eventId}}" }' data-session-object='{{{json this}}}' name="form-class" class="form-select form-control class-selector session-form-desktop">
+                  <option value=" ">
+                  <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.CHOOSE.GROUP")%>
+                  </option>
+                </select>
+              </div>
+            </div>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  {{/each}}
+</div>
+</div>
+`;
+const RESUME_TEMPLATE_FROM_JS = `
+{{#if this}}
+<div class="calendar__summary">
+  <p class="mb-2">
+    Has
+    <strong>
+      seleccionat
+    </strong>
+    les següents sessions:
+  </p>
+  <div class="calendar__summary-item">
+        {{#each this}}
+        <div class="col-lg-6 calendar__summary-class">
+          <div class="d-flex align-items-center">
+            <div class="calendar__notification one me-2 mr-2">
+              {{inc @index}}
+            </div>
+            <strong>
+              {{schoolName}}
+            </strong>
+          </div>
+          {{#each sessions}}
+            <p class="color-gray">
+              <a class="color-educaixa-secundary">
+                {{name}} |</a> {{overviewTime startTime }}
+            </p>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+{{else}}
+  <div class="calendar__summary">
+    <p class="mb-2">
+      <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.here.it.will.be.shown") %>
+      <strong><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.summary.sessions") %></strong>
+    </p>
+    <p><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.no.sessions.selected") %></p>
+  </div>
+{{/if}}
+`;
 
 var data = {
   date: "2021-01-12",
@@ -581,33 +895,6 @@ var data = {
 };
 var currentDate = data.date;
 var savedData = [];
-var localStorageMock = [
-  //max 2 groups
-  {
-    groupSchoolId: 10002,
-    sessions: [
-      //max 2 sessions
-
-      {
-        sessionId: 2381,
-        articleId: 111111,
-        startDate: "2021-01-12T09:00:00Z",
-      },
-    ],
-  },
-  {
-    groupSchoolId: 10006,
-    sessions: [
-      //max 2 sessions
-
-      {
-        sessionId: 222,
-        articleId: 111111,
-        startDate: "2021-01-12T09:00:00Z",
-      },
-    ],
-  },
-];
 
 // Handlebars template pipes
 Handlebars.registerHelper({
@@ -707,13 +994,11 @@ function updateDropdownEvents() {
     .off(".calendar__modal-link")
     .on("click", function () {
       $(this).toggleClass("open");
-      console.log("1");
     });
   $(".calendar__modal-close")
     .off(".calendar__modal-close")
     .on("click", function () {
       $(".calendar__modal-link").removeClass("open");
-      console.log("2");
     });
 
   // Click event add to waitlist
@@ -729,7 +1014,25 @@ function updateDropdownEvents() {
   $(".session-form-mobile")
     .off("change")
     .on("change", function () {
-      console.log("mobile do same");
+      const groupId = parseInt($(this).find("option:selected").attr("value"));
+      const groupName = $(this).find("option:selected").html();
+      const jsonGroup = {
+        id: groupId,
+        name: groupName,
+      };
+      const jsonSession = JSON.parse(
+        e.target.getAttribute("data-session-object")
+      );
+      const jsonActivity = JSON.parse(
+        e.target.getAttribute("data-activity-object")
+      );
+      if (jsonGroup.id !== " " && jsonGroup.id) {
+        addToLocal(jsonGroup, jsonSession, jsonActivity);
+      } else {
+        console.log("DEBUG: DELETE TO LOCAL");
+        checkExistSessionAndDelete(jsonSession.id);
+      }
+      renderElements(selectActivities(currentDate));
     });
   $(".session-form-desktop")
     .off("change")
@@ -749,11 +1052,9 @@ function updateDropdownEvents() {
       if (jsonGroup.id !== " " && jsonGroup.id) {
         addToLocal(jsonGroup, jsonSession, jsonActivity);
       } else {
-        console.log("delete to local");
+        console.log("DEBUG: DELETE TO LOCAL");
+        checkExistSessionAndDelete(jsonSession.id);
       }
-      //1. Check if local has same group
-      //2. Save into local storage
-      //3. Rerender?
       renderElements(selectActivities(currentDate));
     });
 }
@@ -810,7 +1111,7 @@ function checkExistAndAdd(jsonGroup, jsonSession, jsonActivity) {
     if (temp[foundGroupIndex].sessions.length <= 1) {
       temp[foundGroupIndex].sessions.push(tempSession);
     } else {
-      console.log("TODO: POPUP!!!!");
+      console.log("DEBUG: TODO: POPUP!!!!");
     }
   }
   savedData = temp;
@@ -823,11 +1124,9 @@ function checkExistSessionAndDelete(sessionId) {
     group.sessions.forEach((session, sessionIndex) => {
       if (session.id === sessionId) {
         if (group.sessions.length == 1) {
-          console.log("elimino grup");
           tempSavedData.splice(groupIndex, 1);
         }
         if (group.sessions.length == 2) {
-          console.log("elimino sessio");
           group.sessions.splice(sessionIndex, 1);
         }
       }
@@ -838,11 +1137,9 @@ function checkExistSessionAndDelete(sessionId) {
 }
 
 function addToLocal(jsonGroup, jsonSession, jsonActivity) {
-  // CASE 1: Nothing saved in local storage
   if (savedData.length <= 0) {
     checkExistAndAdd(jsonGroup, jsonSession, jsonActivity);
   } else {
-    // CASE 2: Something saved in storage
     checkExistSessionAndDelete(jsonSession.id);
     checkExistAndAdd(jsonGroup, jsonSession, jsonActivity);
   }
@@ -860,7 +1157,7 @@ function updateSelectedEvents() {
           //matches group
           const g1 = parseInt(temp.children[i].getAttribute("value"));
           const g2 = group.schoolId;
-          //martches session
+          //matches session
           const s1 = parseInt(temp.getAttribute("data-session-id"));
           const s2 = session.id;
           if (g1 === g2 && s1 === s2) {
@@ -984,22 +1281,21 @@ function deleteLocalstorage() {
   localStorage.removeItem("daily_data");
   savedData = [];
   renderElements(selectActivities(currentDate));
-  console.log("DELETED");
+  console.log("DEBUG: deleted localstorage");
 }
 
 function loadFromLocalStorage() {
   var retrievedObject = localStorage.getItem("daily_data");
   if (retrievedObject) {
-    console.log("retrievedObject: ", JSON.parse(retrievedObject));
     savedData = JSON.parse(retrievedObject);
   } else {
-    console.log("no local storage info");
+    console.log("DEBUG: no local storage info");
   }
 }
 
 function updateOverview() {
   const templateFromHtml = $("#handlebars-resume-calendar").html();
-  const templateScript = Handlebars.compile(templateFromHtml);
+  const templateScript = Handlebars.compile(RESUME_TEMPLATE_FROM_JS);
   const renderedTemplate = templateScript(savedData);
   $("#resume-activities").empty();
   $("#resume-activities").append(renderedTemplate);
