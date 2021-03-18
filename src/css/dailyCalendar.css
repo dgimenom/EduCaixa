@@ -263,8 +263,8 @@
   line-height: 24px;
 }
 
-.calendar__notification.one:not(:first-child) {
-  background-color: #247408!important;
+.color-2 {
+  background-color: #247408 !important;
 }
 
 @media screen and (max-width: 600px) {
@@ -290,4 +290,39 @@
   .time-day-container {
     padding: 0rem;
   }
+  .modal__sessions {
+    flex-direction: column !important;
+  }
+}
+
+.modal__title {
+  color: #4176db;
+  font-family: "Circular Std Bold";
+}
+
+.modal__description {
+  margin: 0;
+  font-family: "Circular Std Book";
+}
+
+.modal__sessions {
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.modal__sessions .option {
+  margin: 1rem;
+  background-color: white;
+  border-radius: 15px;
+  border-color: #4176db;
+  padding: 0.5rem;
+  outline: none;
+}
+.modal__sessions .option:hover {
+  background-color: #bec3cc;
+}
+
+.modal__sessions .option .session-name {
+  font-family: "Circular Std Bold";
 }

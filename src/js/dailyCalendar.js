@@ -281,17 +281,16 @@ const RESUME_TEMPLATE_FROM_JS = `
 {{#if this}}
 <div class="calendar__summary">
   <p class="mb-2">
-    Has
-    <strong>
-      seleccionat
-    </strong>
-    les següents sessions:
+    <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.here.it.will.be.shown") %>
+    <strong><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.summary.sessions") %></strong>
+  </p>
+  <p><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.no.sessions.selected") %></p>
   </p>
   <div class="calendar__summary-item">
         {{#each this}}
         <div class="col-lg-6 calendar__summary-class">
-          <div class="d-flex align-items-center">
-            <div class="calendar__notification one me-2 mr-2">
+          <div class="calendar__summary-class-title d-flex align-items-center">
+            <div class="calendar__notification one me-2 mr-2 color-{{inc @index}}">
               {{inc @index}}
             </div>
             <strong>
@@ -299,9 +298,9 @@ const RESUME_TEMPLATE_FROM_JS = `
             </strong>
           </div>
           {{#each sessions}}
-            <p class="color-gray">
-              <a class="color-educaixa-secundary">
-                {{name}} |</a> {{overviewTime startTime }}
+            <p class="color-gray calendar__summary-session">
+              <span class="color-educaixa-secundary session-title">
+                {{name}} |</span> {{overviewTime startTime }}
             </p>
           {{/each}}
         </div>
@@ -1063,6 +1062,21 @@ function checkExistAndAdd(jsonGroup, jsonSession, jsonActivity) {
   var temp = savedData;
   var foundGroupIndex;
   var isNew = true;
+  var tempSession = {
+    activityPlanId: jsonActivity.activityPlanId,
+    articleId: jsonActivity.articleId,
+    fblcActivityId: jsonActivity.fblcActivityId,
+    eventId: jsonActivity.eventId,
+    id: jsonSession.id,
+    eventId: jsonSession.eventId,
+    name: jsonSession.name,
+    fblcActivityId: jsonSession.fblcActivityId,
+    availability: jsonSession.availability,
+    maxCapacity: jsonSession.maxCapacity,
+    price: jsonSession.price,
+    startTime: jsonSession.startDatetimeString,
+  };
+
   temp.forEach((group, groupIndex) => {
     if (group.schoolId == jsonGroup.id) {
       isNew = false;
@@ -1094,24 +1108,31 @@ function checkExistAndAdd(jsonGroup, jsonSession, jsonActivity) {
     };
     temp.push(newGroup);
   } else {
-    var tempSession = {
-      activityPlanId: jsonActivity.activityPlanId,
-      articleId: jsonActivity.articleId,
-      fblcActivityId: jsonActivity.fblcActivityId,
-      eventId: jsonActivity.eventId,
-      id: jsonSession.id,
-      eventId: jsonSession.eventId,
-      name: jsonSession.name,
-      fblcActivityId: jsonSession.fblcActivityId,
-      availability: jsonSession.availability,
-      maxCapacity: jsonSession.maxCapacity,
-      price: jsonSession.price,
-      startTime: jsonSession.startDatetimeString,
-    };
     if (temp[foundGroupIndex].sessions.length <= 1) {
       temp[foundGroupIndex].sessions.push(tempSession);
     } else {
-      console.log("DEBUG: TODO: POPUP!!!!");
+      console.log("DEBUG: TODO: POPUP!!!!", foundGroupIndex);
+      const tempSessionParsed = JSON.stringify(tempSession);
+      const TEMPLATE = `
+      {{#each this}}
+      <button class="option" onClick="$('#replaceSession').modal('hide'); replaceFromGroup({{ json '${tempSessionParsed}' }}, ${foundGroupIndex}, {{@index}})">
+        <p
+          class="session-name color-educaixa-secundary session-title calendar__summary-session"
+        >
+          {{name}}
+        </p>
+        <p class="session-time color-gray calendar__summary-session">
+          {{overviewTime startTime}}
+        </p>
+      </button>
+      {{/each}}
+      `;
+      $('#remove__options').empty();
+      const templateScript = Handlebars.compile(TEMPLATE); 
+      const renderedTemplate = templateScript(temp[foundGroupIndex].sessions);
+      $("#remove__options").append(renderedTemplate);
+      $('#replaceSession').modal('show');
+
     }
   }
   savedData = temp;
@@ -1134,6 +1155,13 @@ function checkExistSessionAndDelete(sessionId) {
   });
   savedData = tempSavedData;
   localStorage.setItem("daily_data", JSON.stringify(savedData));
+}
+
+function replaceFromGroup(newObject, foundIndex, selectedElement){
+  savedData[foundIndex].sessions[selectedElement] = JSON.parse(newObject);
+  localStorage.setItem("daily_data", JSON.stringify(savedData));
+  updateOverview();
+  renderElements(selectActivities(currentDate));
 }
 
 function addToLocal(jsonGroup, jsonSession, jsonActivity) {
@@ -1295,8 +1323,8 @@ function loadFromLocalStorage() {
 
 function updateOverview() {
   const templateFromHtml = $("#handlebars-resume-calendar").html();
-  const templateScript = Handlebars.compile(templateFromHtml);
-  // const templateScript = Handlebars.compile(RESUME_TEMPLATE_FROM_JS);
+  // const templateScript = Handlebars.compile(templateFromHtml);
+  const templateScript = Handlebars.compile(RESUME_TEMPLATE_FROM_JS);
   const renderedTemplate = templateScript(savedData);
   $("#resume-activities").empty();
   $("#resume-activities").append(renderedTemplate);

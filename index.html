@@ -32,6 +32,48 @@
 
     <div id="daily-calendar"></div>
 
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#replaceSession"
+    >
+      Launch demo modal
+    </button>
+
+    <!-- Modal Replace Session -->
+    <div
+      class="modal fade"
+      id="replaceSession"
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="replaceSessionLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title modal__title" id="replaceSessionLabel">
+              Només es permeten dues sessions per grup.
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="modal__description">
+              Selecciona quina sessió vols substituir:
+            </p>
+            <div id="remove__options" class="modal__sessions">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <button onclick="deleteLocalstorage()">Delete Local Storage</button>
 
     <script id="handlebars-daily-calendar" type="text/x-handlebars-template">
@@ -318,11 +360,12 @@
         </p>
         <p><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.no.sessions.selected") %></p>
         </p>
+
         <div class="calendar__summary-item">
               {{#each this}}
               <div class="col-lg-6 calendar__summary-class">
                 <div class="calendar__summary-class-title d-flex align-items-center">
-                  <div class="calendar__notification one me-2 mr-2">
+                  <div class="calendar__notification one me-2 mr-2 color-{{inc @index}}">
                     {{inc @index}}
                   </div>
                   <strong>
