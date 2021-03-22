@@ -170,12 +170,14 @@ const DAILY_TEMPLATE_FROM_JS = `
         </div>
       </div>
       <!-- HIDE/SHOW LINK -->
-      <a id="toggle-{{activityPlanId}}" style="overflow: hidden;" class="toggle-link link__blue link--underline down-arrow" onclick="toggleSessions('{{activityPlanId}}')">
+      {{#if sessions}}
+      <a id="toggle-{{@index}}" style="overflow: hidden;" class="toggle-link link__blue link--underline down-arrow" onclick="toggleSessions('{{@index}}')">
       <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.SHOW.SESSIONS")%>
       </a>
+      {{/if}}
       <!-- SESSIONS CONTAINER -->
       <div class="sessions-mobile">
-        <div id="mobile-sessions-{{activityPlanId}}" data-activity-plan="{{activityPlanId}}" style="display: none">
+        <div id="mobile-sessions-{{@index}}" data-activity-plan="{{activityPlanId}}" style="display: none">
           {{#each sessions}}
           {{#if (lte availability 0)}}
               <div id="session-mobile-{{id}}" class="calendar__item large calendar__border--light-gray">
@@ -202,7 +204,7 @@ const DAILY_TEMPLATE_FROM_JS = `
                   <p class="color-gray session-places">
                     {{maxCapacity}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
                   </p>
-                  <select data-session-id="{{id}}" name="form-class" class="form-select form-control class-selector session-form-mobile">
+                  <select data-session-id="{{id}}" data-activity-object='{"activityPlanId":"{{activityPlanId}}", "articleId":"{{articleId}}", "fblcActivityId":"{{fblcActivityId}}", "eventId":"{{eventId}}" }' data-session-object='{{{json this}}}' name="form-class" class="form-select form-control class-selector session-form-mobile">
                     <option value=" ">
                     <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.CHOOSE.GROUP")%>
                     </option>
@@ -286,6 +288,7 @@ const RESUME_TEMPLATE_FROM_JS = `
   </p>
   <p><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.no.sessions.selected") %></p>
   </p>
+
   <div class="calendar__summary-item">
         {{#each this}}
         <div class="col-lg-6 calendar__summary-class">
@@ -825,7 +828,7 @@ var data = {
     },
     {
       articleId: "22222",
-      fblcActivityId: null,
+      fblcActivityId: "AE-2734",
       eventId: 5,
       title: "Toca la luz",
       description: "Descubre la importancia de la fotÃ¯Â¿Â½nica",
@@ -858,7 +861,7 @@ var data = {
     },
     {
       articleId: "22222",
-      fblcActivityId: null,
+      fblcActivityId: "AE-2734",
       eventId: 6,
       title: "Deep Sky",
       description:
@@ -961,15 +964,13 @@ Handlebars.registerHelper("inc", function (value) {
 
 function renderElements(dataInfo) {
   // Rendering handlebars template
-  const templateFromHtml = $("#handlebars-daily-calendar").html();
   const templateScript = Handlebars.compile(DAILY_TEMPLATE_FROM_JS);
   const renderedTemplate = templateScript(dataInfo);
   $("#daily-calendar").empty();
   $("#daily-calendar").append(renderedTemplate);
 
   // Set height scheduling grid
-  document.getElementById("calendar-events").style.height =
-    CALENDAR_HEIGHT + "rem";
+  document.getElementById("calendar-events").style.height = CALENDAR_HEIGHT + "rem";
 
   // Add group options in dropdowns
   const optionsTemplate = `{{#each groups}}<option id="option-{{id}}" value="{{id}}">{{name}}</option>{{/each}}`;
@@ -988,11 +989,11 @@ function renderElements(dataInfo) {
 }
 
 function updateDropdownEvents() {
-  // Toggle event mobile version
+  //Show popups
   $(".calendar__modal-link")
     .off(".calendar__modal-link")
     .on("click", function () {
-      $(this).toggleClass("open");
+      $(this).addClass("open");
     });
   $(".calendar__modal-close")
     .off(".calendar__modal-close")
@@ -1012,7 +1013,7 @@ function updateDropdownEvents() {
   // Change event dropdown sessions
   $(".session-form-mobile")
     .off("change")
-    .on("change", function () {
+    .on("change", function (e) {
       const groupId = parseInt($(this).find("option:selected").attr("value"));
       const groupName = $(this).find("option:selected").html();
       const jsonGroup = {
@@ -1028,7 +1029,6 @@ function updateDropdownEvents() {
       if (jsonGroup.id !== " " && jsonGroup.id) {
         addToLocal(jsonGroup, jsonSession, jsonActivity);
       } else {
-        console.log("DEBUG: DELETE TO LOCAL");
         checkExistSessionAndDelete(jsonSession.id);
       }
       renderElements(selectActivities(currentDate));
@@ -1051,7 +1051,6 @@ function updateDropdownEvents() {
       if (jsonGroup.id !== " " && jsonGroup.id) {
         addToLocal(jsonGroup, jsonSession, jsonActivity);
       } else {
-        console.log("DEBUG: DELETE TO LOCAL");
         checkExistSessionAndDelete(jsonSession.id);
       }
       renderElements(selectActivities(currentDate));
@@ -1076,17 +1075,15 @@ function checkExistAndAdd(jsonGroup, jsonSession, jsonActivity) {
     price: jsonSession.price,
     startTime: jsonSession.startDatetimeString,
   };
-
   temp.forEach((group, groupIndex) => {
     if (group.schoolId == jsonGroup.id) {
       isNew = false;
       foundGroupIndex = groupIndex;
     }
   });
-
-  //no group found case
   if (isNew) {
-    var newGroup = {
+    temp.push( 
+    {
       schoolId: jsonGroup.id,
       schoolName: jsonGroup.name,
       sessions: [
@@ -1105,17 +1102,24 @@ function checkExistAndAdd(jsonGroup, jsonSession, jsonActivity) {
           startTime: jsonSession.startDatetimeString,
         },
       ],
-    };
-    temp.push(newGroup);
+    });
   } else {
     if (temp[foundGroupIndex].sessions.length <= 1) {
-      temp[foundGroupIndex].sessions.push(tempSession);
+      if(!groupHasSameActivity(foundGroupIndex, tempSession.fblcActivityId, null)){
+        temp[foundGroupIndex].sessions.push(tempSession);
+      }else{
+        triggerErrorMessage();
+      }
     } else {
-      console.log("DEBUG: TODO: POPUP!!!!", foundGroupIndex);
       const tempSessionParsed = JSON.stringify(tempSession);
-      const TEMPLATE = `
-      {{#each this}}
-      <button class="option" onClick="$('#replaceSession').modal('hide'); replaceFromGroup({{ json '${tempSessionParsed}' }}, ${foundGroupIndex}, {{@index}})">
+      const tempMountedObject = {
+        tempSession: tempSessionParsed,
+        foundGroup: foundGroupIndex,
+        sessions:temp[foundGroupIndex].sessions
+      }
+      const REPLACE_OPTIONS_TEMPLATE = `
+      {{#each sessions}}
+      <button class="option" onClick="$('#replaceSession').modal('hide'); replaceFromGroup({{../tempSession}}, {{../foundGroup}}, {{@index}})">
         <p
           class="session-name color-educaixa-secundary session-title calendar__summary-session"
         >
@@ -1127,12 +1131,11 @@ function checkExistAndAdd(jsonGroup, jsonSession, jsonActivity) {
       </button>
       {{/each}}
       `;
+      const templateScript = Handlebars.compile(REPLACE_OPTIONS_TEMPLATE); 
+      const renderedTemplate = templateScript(tempMountedObject);
       $('#remove__options').empty();
-      const templateScript = Handlebars.compile(TEMPLATE); 
-      const renderedTemplate = templateScript(temp[foundGroupIndex].sessions);
       $("#remove__options").append(renderedTemplate);
       $('#replaceSession').modal('show');
-
     }
   }
   savedData = temp;
@@ -1157,11 +1160,44 @@ function checkExistSessionAndDelete(sessionId) {
   localStorage.setItem("daily_data", JSON.stringify(savedData));
 }
 
+function triggerErrorMessage(){
+  const errorMessage = `
+  <div class="alert alert-danger alert-dismissible fade show text-danger" role="alert">
+    <span class="item-activity__item-alert" style="margin-top:0;display: flex; align-items: center;"><strong>ALERTA!</strong> No es poden afegir dues activitats del mateix tipus!</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  `;
+  $("#resume-error").empty();
+  $("#resume-error").append(errorMessage);
+}
+
+function groupHasSameActivity(foundIndex, newActivityPlanId, selectedElement){
+  var hasSameActivity = false;
+  var otherId;
+  if(selectedElement){
+    otherId = selectedElement == 0 ? 1:0;
+  }else{
+    otherId = 0;
+  }
+  if(savedData[foundIndex].sessions[otherId].fblcActivityId == newActivityPlanId){
+    hasSameActivity = true;
+  }
+  return hasSameActivity;
+}
+
 function replaceFromGroup(newObject, foundIndex, selectedElement){
-  savedData[foundIndex].sessions[selectedElement] = JSON.parse(newObject);
-  localStorage.setItem("daily_data", JSON.stringify(savedData));
-  updateOverview();
-  renderElements(selectActivities(currentDate));
+  var hasSameActivity = false;
+  hasSameActivity = groupHasSameActivity(foundIndex, newObject.fblcActivityId, selectedElement);
+  if(hasSameActivity){
+    triggerErrorMessage();
+  }else{
+    savedData[foundIndex].sessions[selectedElement] = newObject;
+    localStorage.setItem("daily_data", JSON.stringify(savedData));
+    updateOverview();
+    renderElements(selectActivities(currentDate));
+  }
 }
 
 function addToLocal(jsonGroup, jsonSession, jsonActivity) {
@@ -1195,17 +1231,17 @@ function updateSelectedEvents() {
         element.classList.remove("calendar__border--gray");
         element.classList.add("calendar__border--blue");
       }
-      sessionMobileID = "session-mobile-" + session.sessionId;
+      sessionMobileID = "session-mobile-" + session.id;
       mobileElement = document.getElementById(sessionMobileID);
       if (mobileElement) {
         var temp = mobileElement.children[0].children[2];
         for (let i = 0; i < temp.children.length; i++) {
           //matches group
           const v1 = parseInt(temp.children[i].getAttribute("value"));
-          const v2 = group.groupSchoolId;
+          const v2 = group.schoolId;
           //martches session
           const s1 = parseInt(temp.getAttribute("data-session-id"));
-          const s2 = session.sessionId;
+          const s2 = session.id;
           if (v1 === v2 && s1 === s2) {
             temp.children[i].setAttribute("selected", "selected");
           }
@@ -1322,8 +1358,6 @@ function loadFromLocalStorage() {
 }
 
 function updateOverview() {
-  const templateFromHtml = $("#handlebars-resume-calendar").html();
-  // const templateScript = Handlebars.compile(templateFromHtml);
   const templateScript = Handlebars.compile(RESUME_TEMPLATE_FROM_JS);
   const renderedTemplate = templateScript(savedData);
   $("#resume-activities").empty();

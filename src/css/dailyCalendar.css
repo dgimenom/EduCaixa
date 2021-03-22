@@ -1,5 +1,6 @@
-.calendar__summary {
-  max-width: 1131px;
+.calendar__summary,
+#resume-error {
+  max-width: 1130px;
   margin: auto;
 }
 
@@ -34,6 +35,10 @@
   display: none;
 }
 
+#daily-calendar {
+  margin-top: 2rem;
+}
+
 .daily-calendar-container {
   display: grid;
   grid-template-areas: "empty activity" "time  event" "time event";
@@ -43,7 +48,6 @@
   width: 100%;
   height: 100%;
   overflow-x: clip;
-  overflow-y: auto;
   padding-bottom: 1rem;
 }
 

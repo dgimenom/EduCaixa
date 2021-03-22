@@ -4,18 +4,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EduCaixa Maqueta Custom</title>
 
+    <!-- <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    /> -->
+
+    <!-- IMPORT SAME BOOTSTRAP AS LIFERAY VERSION -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
       crossorigin="anonymous"
     ></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Full calendar library -->
     <link href="../fullcalendar-5.5.0/lib/main.css" rel="stylesheet" />
     <script src="../fullcalendar-5.5.0/lib/main.js"></script>
 
@@ -29,17 +55,9 @@
 
   <body>
     <div id="resume-activities"></div>
+    <div id="resume-error"></div>
 
     <div id="daily-calendar"></div>
-
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#replaceSession"
-    >
-      Launch demo modal
-    </button>
 
     <!-- Modal Replace Session -->
     <div
@@ -50,7 +68,7 @@
       aria-labelledby="replaceSessionLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title modal__title" id="replaceSessionLabel">
@@ -67,331 +85,12 @@
             <p class="modal__description">
               Selecciona quina sessió vols substituir:
             </p>
-            <div id="remove__options" class="modal__sessions">
-            </div>
+            <div id="remove__options" class="modal__sessions"></div>
           </div>
         </div>
       </div>
     </div>
-
-    <button onclick="deleteLocalstorage()">Delete Local Storage</button>
-
-    <script id="handlebars-daily-calendar" type="text/x-handlebars-template">
-      <div class="time-day-container">
-        <div class="fc-toolbar-chunk">
-          <button
-            class="fc-prev-button fc-button fc-button-primary"
-            type="button"
-            aria-label="prev"
-            onclick="changeDay(-1)"
-          >
-            <span class="fc-icon fc-icon-chevron-left"></span>
-          </button>
-        </div>
-        <div class="fc-toolbar-chunk">
-          <h2 class="time-day-title">
-            {{convertDaily date}}
-          </h2>
-          {{#if center}}
-            <h4 class="time-day-subtitle">
-              {{center}}
-            </h4>
-          {{/if}}
-        </div>
-        <div class="fc-toolbar-chunk">
-          <button
-            class="fc-next-button fc-button fc-button-primary"
-            type="button"
-            aria-label="next"
-            onclick="changeDay(1)"
-          >
-            <span class="fc-icon fc-icon-chevron-right"></span>
-          </button>
-        </div>
-      </div>
-      <div class="daily-calendar-container">
-        <div class="empty"></div>
-        <div class="time">
-          <p>
-            09:00h
-          </p>
-          <p>
-            10:00h
-          </p>
-          <p>
-            11:00h
-          </p>
-          <p>
-            12:00h
-          </p>
-          <p>
-            13:00h
-          </p>
-          <p>
-            14:00h
-          </p>
-          <p>
-            15:00h
-          </p>
-          <p>
-            16:00h
-          </p>
-          <p>
-            17:00h
-          </p>
-          <p>
-            18:00h
-          </p>
-          <p>
-          19:00h
-          </p>
-          <p>
-          20:00h
-          </p>
-        </div>
-        <div class="activities">
-          {{#unless activities}}
-            <h5 class="no-activities-warning">
-              <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.NO.ACTIVITIES")%>
-            </h5>
-          {{/unless}}
-          {{#each activities}}
-            <div class="activity-container">
-              <!-- ACTIVITY CONTAINER -->
-              <div class="calendar__item p-0">
-                {{#if matched}}
-                  <div class="calendar__leyend blue"></div>
-                {{else}}
-                  <div class="calendar__leyend black"></div>
-                {{/if}}
-                <div class="calendar__info">
-                  <div>
-                    <p class="title">
-                      <strong>
-                        {{{title}}}
-                      </strong>
-                    </p>
-                    <p class="maximum">
-                      {{{product.capacity}}}
-                    </p>
-                    <p class="price">
-                      {{{product.price}}}
-                    </p>
-                    {{#if promotions}}
-                      <a class="discount mb-3 d-block calendar__modal-link">
-                        <span class="item-activity__ico--porcent"></span>
-                        <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.PROMOTION")%>
-                      </a>
-                      <div class="card-course__element typografy__four calendar__modal" id="">
-                        <a class="calendar__modal-close">
-                          x
-                        </a>
-                        <div>
-                          <span class="item-activity__ico--porcent"></span>
-                          <span>
-                          <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.PROMOTION.PACK")%>
-                          </span>
-                        </div>
-                        {{#each promotions}}
-                          <p id="{{id}}" class="circular-Std-Book color-grayMedium circular-Std-Bold">
-                            {{name}}
-                          </p>
-                        {{/each}}
-                      </div>
-                    {{/if}}
-                  </div>
-                  <a class="more-info link__blue calendar__modal-link">
-                  <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.MORE.INFO")%>
-                  </a>
-                  <div class="card-course__element calendar__modal" id="">
-                    <a class="calendar__modal-close">
-                      x
-                    </a>
-                    <div class="col-lg-12 p-0">
-                      {{#if imageUrl}}
-                        <div class="card-course__img">
-                          <a href="{{friendlyUrl}}">
-                            <img alt="" class="image" src="{{imageUrl}}" />
-                          </a>
-                        </div>
-                      {{/if}}
-                      <div>
-                        <div class="d-flex mb-1 typografy__five justify-content-between">
-                          <span class="color-educaixa-secundary session-time">
-                          <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.ACTIVITY")%>
-                            <span class="circular-Std-Bold">
-                            <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.GUIDED.VISIT")%>
-                            </span>
-                          </span>
-                        </div>
-                        <a class="link__black link--no-underline" href="{{friendlyUrl}}">
-                          <h3 class="card-course__title">
-                            {{{title}}}
-                          </h3>
-                        </a>
-                        <p class="card-course__summary">
-                          {{{description}}}
-                        </p>
-                      </div>
-                      <div class="card-course__description">
-                        <p class="circular-Std-Bold">
-                          {{{product.centerName}}}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- HIDE/SHOW LINK -->
-              <a id="toggle-{{activityPlanId}}" style="overflow: hidden;" class="toggle-link link__blue link--underline down-arrow" onclick="toggleSessions('{{activityPlanId}}')">
-              <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.SHOW.SESSIONS")%>
-              </a>
-              <!-- SESSIONS CONTAINER -->
-              <div class="sessions-mobile">
-                <div id="mobile-sessions-{{activityPlanId}}" data-activity-plan="{{activityPlanId}}" style="display: none">
-                  {{#each sessions}}
-                  {{#if (lte availability 0)}}
-                      <div id="session-mobile-{{id}}" class="calendar__item large calendar__border--light-gray">
-                        <div style="width: 100%;">
-                          <p class="color-grayLight">
-                            {{convertTime startDatetimeString}} - {{convertTime endDatetimeString}} h
-                          </p>
-                          <p class="mb-3 color-gray">
-                            <span class="item-activity__ico--alert"></span>
-                            {{maxCapacity}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
-                          </p>
-                          <a data-session-id="{{id}}" class="add-waitlist link__black">
-                            <span class="item-activity__ico--plus"></span>
-                            <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.ADD.WAITLIST")%>
-                          </a>
-                        </div>
-                      </div>
-                    {{else}}
-                      <div id="session-mobile-{{id}}" class="calendar__item large calendar__border--gray">
-                        <div style="width: 100%;">
-                          <p class="color-educaixa-secundary">
-                            {{convertTime startDatetimeString}} - {{convertTime endDatetimeString}} h
-                          </p>
-                          <p class="color-gray session-places">
-                            {{maxCapacity}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
-                          </p>
-                          <select data-session-id="{{id}}" name="form-class" class="form-select form-control class-selector session-form-mobile">
-                            <option value=" ">
-                            <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.CHOOSE.GROUP")%>
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                    {{/if}}
-                  {{/each}}
-                </div>
-              </div>
-            </div>
-          {{/each}}
-        </div>
-        <div class="events" id="calendar-events">
-          {{#each activities}}
-            <div class="activity-container">
-              <div data-activity-plan="{{activityPlanId}}" style="position: relative;">
-                {{#each sessions}}
-                  {{#if (lte availability 0)}}
-                    <div id="session-{{id}}" class="calendar__item large calendar__border--light-gray" style="position: absolute; margin-top: {{
-                        convertOffset startDatetimeString
-                      }}; height: {{
-                        convertHeight startDatetimeString endDatetimeString
-                      }};"
-                    >
-                      <div style="width: 100%;">
-                        <p class="color-grayLight">
-                          {{convertTime startDatetimeString}} - {{convertTime endDatetimeString}} h
-                        </p>
-                        <p class="mb-3 color-gray session-text-wrap">
-                          <span class="item-activity__ico--alert"></span>
-                          Sense places disponibles
-                          <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.NO.AVAILABILITY")%>
-                        </p>
-                        <a data-session-id="{{id}}" href="#" class="add-waitlist link__black session-text-wrap">
-                          <span class="item-activity__ico--plus"></span>
-                          <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.ADD.WAITLIST")%>
-                        </a>
-                      </div>
-                    </div>
-                  {{else}}
-                    <div
-                      id="session-{{id}}"
-                      class="calendar__item large calendar__border--gray"
-                      style="position: absolute; margin-top: {{
-                        convertOffset startDatetimeString
-                      }}; height: {{
-                        convertHeight startDatetimeString endDatetimeString
-                      }};"
-                    >
-                      <div class="session-container">
-                        <p class="color-educaixa-secundary session-time">
-                          {{convertTime startDatetimeString}} - {{convertTime
-                            endDatetimeString
-                          }} h
-                        </p>
-                        <p class="color-gray session-places">
-                          {{availability}} <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(),       "COM.EDUCAIXA.PLANNER.CHOOSESESSION.AVAILABILITY")%>
-                        </p>
-                        <select data-session-id="{{id}}" data-activity-object='{"activityPlanId":"{{activityPlanId}}", "articleId":"{{articleId}}", "fblcActivityId":"{{fblcActivityId}}", "eventId":"{{eventId}}" }' data-session-object='{{{json this}}}' name="form-class" class="form-select form-control class-selector session-form-desktop">
-                          <option value=" ">
-                          <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "COM.EDUCAIXA.PLANNER.CHOOSESESSION.CHOOSE.GROUP")%>
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  {{/if}}
-                {{/each}}
-              </div>
-            </div>
-          {{/each}}
-        </div>
-      </div>
-    </script>
-
-    <script id="handlebars-resume-calendar" type="text/x-handlebars-template">
-      {{#if this}}
-      <div class="calendar__summary">
-        <p class="mb-2">
-          <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.here.it.will.be.shown") %>
-          <strong><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.summary.sessions") %></strong>
-        </p>
-        <p><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.no.sessions.selected") %></p>
-        </p>
-
-        <div class="calendar__summary-item">
-              {{#each this}}
-              <div class="col-lg-6 calendar__summary-class">
-                <div class="calendar__summary-class-title d-flex align-items-center">
-                  <div class="calendar__notification one me-2 mr-2 color-{{inc @index}}">
-                    {{inc @index}}
-                  </div>
-                  <strong>
-                    {{schoolName}}
-                  </strong>
-                </div>
-                {{#each sessions}}
-                  <p class="color-gray calendar__summary-session">
-                    <span class="color-educaixa-secundary session-title">
-                      {{name}} |</span> {{overviewTime startTime }}
-                  </p>
-                {{/each}}
-              </div>
-              {{/each}}
-            </div>
-          </div>
-      {{else}}
-        <div class="calendar__summary">
-          <p class="mb-2">
-            <%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.here.it.will.be.shown") %>
-            <strong><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.summary.sessions") %></strong>
-          </p>
-          <p><%=LiteralsToolsServiceUtil.getLiteral(themeDisplay.getScopeGroupId(), locale.toString(), "com.educaixa.planner.choosesession.no.sessions.selected") %></p>
-        </div>
-      {{/if}}
-    </script>
+    <!-- End Modal Replace Session -->
 
     <!-- JS DAILY CALENDAR -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
