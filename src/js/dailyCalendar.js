@@ -938,22 +938,19 @@ Handlebars.registerHelper("convertDaily", function (date) {
 });
 Handlebars.registerHelper("convertOffset", function (start) {
   const date = new Date(start);
-  const startValue = parseInt(date.getHours() * 100 + date.getMinutes());
-  return (
-    (((startValue - START_TIME * 100) / 100) * CALENDAR_HEIGHT) / TIME_SLOTS +
-    "rem"
-  );
+  var dateRelative = new Date(date);
+  dateRelative.setHours(9);
+  dateRelative.setMinutes(0);
+  const diffInMin = (date.getTime() - dateRelative.getTime()) / 60000;
+  var result = (diffInMin / (TIME_SLOTS * 60)) * CALENDAR_HEIGHT + "rem";
+  return result;
 });
 Handlebars.registerHelper("convertHeight", function (start, end) {
   const startDate = new Date(start);
   const endDate = new Date(end);
-  const startValue = parseInt(
-    startDate.getHours() * 100 + startDate.getMinutes()
-  );
-  const endValue = parseInt(endDate.getHours() * 100 + endDate.getMinutes());
-  return (
-    (((endValue - startValue) / 100) * CALENDAR_HEIGHT) / TIME_SLOTS + "rem"
-  );
+  const diffInMin = (endDate.getTime() - startDate.getTime()) / 60000;
+  var result = (diffInMin / (TIME_SLOTS * 60)) * CALENDAR_HEIGHT + "rem";
+  return result;
 });
 Handlebars.registerHelper("json", function (context) {
   return JSON.stringify(context);
