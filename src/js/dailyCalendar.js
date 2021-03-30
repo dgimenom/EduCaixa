@@ -1172,14 +1172,15 @@ function triggerErrorMessage(){
 
 function groupHasSameActivity(foundIndex, newActivityPlanId, selectedElement){
   var hasSameActivity = false;
-  var otherId;
-  if(selectedElement){
-    otherId = selectedElement == 0 ? 1:0;
-  }else{
-    otherId = 0;
-  }
-  if(savedData[foundIndex].sessions[otherId].fblcActivityId == newActivityPlanId){
-    hasSameActivity = true;
+  var otherSelectedElement;
+  savedData[foundIndex].sessions.forEach((session, sessionIndex) => {
+    if(session.fblcActivityId == newActivityPlanId){
+      hasSameActivity = true;
+      otherSelectedElement = sessionIndex;
+    }
+  });
+  if(selectedElement == otherSelectedElement){ //Check if its replacing an existing activity with same id
+    hasSameActivity = false;
   }
   return hasSameActivity;
 }
